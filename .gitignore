@@ -1,3 +1,5 @@
 $ cat gitignore
 
 .DS_Store
+
+tmp/
