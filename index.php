@@ -46,23 +46,25 @@
 
     <!-- контейнер для фильмов -->
     <div id="movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
+    <?php foreach($rows as $row) { ?>
         <div class="col">
             <div class="card border border-0 shadow-sm">
                 <img src="./images/movie-default.png" class="card-img-top" alt="Movie thumbnail">
-                <div class="card-header border border-0">genres</div>
+                <div class="card-header border border-0"><?php echo $row["genres"]; ?></div>
                 <div class="card-body">
                     <h5 class="card-title mb-3">
-                        <span>title</span>
-                        <small class="text-body-tertiary">(year)</small>
+                        <span><?php echo $row["title"]; ?></span>
+                        <small class="text-body-tertiary">(<?php echo $row["year"]; ?>)</small>
                     </h5>
-                    <h6 class="card-text mb-3 text-secondary"><em>cast</em></h6>
-                    <p class="card-text">extract</p>
+                    <h6 class="card-text mb-3 text-secondary"><em><?php echo $row["cast"]; ?></em></h6>
+                    <p class="card-text"><?php echo $row["extract"]; ?></p>
                     <button type="button" class="btn btn-primary">
                         Read more...
                     </button>
                 </div>
             </div>
         </div>
+        <?php } ?>
     </div>
 </div>
 
