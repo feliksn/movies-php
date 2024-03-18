@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg bg-white border-bottom ">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="./images/bootstrap-logo.svg" alt="Bootstrap" width="41.25" height="33">
+                <img src="./images/logo.svg" alt="Bootstrap" width="41.25" height="33">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
