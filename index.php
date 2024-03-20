@@ -19,13 +19,13 @@
             <div class="card border border-0 shadow-sm">
                 <!-- Задание 2.1
                 Добавить картинки из папки content/movies-thumbnails для фильмов используя данные из базы данных -->
-                <img src="./images/movie-default.png" class="card-img-top" alt="Movie thumbnail">
+                <img src="./content/movies-thumbnails/<?php echo $row["thumbnail"]; ?>" class="card-img-top" alt="Movie thumbnail">
                 <!-- Задание 2.2
                 а) Сократить данные о жанрах до 30 символов и добавить 3 точки в конце
                 б) Доп.задание необязательное (если (а) показалось легким)
                 - если длина жанров более 30 символов обрезать до 30 символов и добавить ...,
                 - если длина менее 30 симвлов оставить без изменений  -->
-                <div class="card-header border border-0"><?php echo $row["genres"] ?></div>
+                <div class="card-header border border-0"><?php getMoviesProp($row, 'genres', 30);?></div>
                 <div class="card-body">
                     <h5 class="card-title mb-3">
                         <span><?php echo $row["title"] ?></span>
@@ -36,13 +36,13 @@
                     б) Доп.задание необязательное (если (а) показалось легким)
                     - если длина актеров более 30 символов обрезать до 30 символов и добавить ...,
                     - если длина менее 30 симвлов оставить без изменений -->
-                    <h6 class="card-text mb-3 text-secondary"><em><?php echo $row["cast"] ?></em></h6>
+                    <h6 class="card-text mb-3 text-secondary"><em><?php getMoviesProp($row, 'cast', 30);?></em></h6>
                     <!-- Задание 2.4
                     Сократить данные описания до 90 символов и добавить 3 точки в конце
                     б) Доп.задание необязательное (если (а) показалось легким)
                     - если длина описания более 90 символов обрезать до 90 символов и добавить ...,
                     - если длина менее 90 симвлов оставить без изменений -->
-                    <p class="card-text"><?php echo $row["extract"] ?></p>
+                    <p class="card-text"><?php getMoviesProp($row, 'extract', 90);?></p>
                     <button type="button" class="btn btn-primary">
                         Read more...
                     </button>
