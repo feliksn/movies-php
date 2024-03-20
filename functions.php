@@ -43,3 +43,13 @@ function showRawData($data)
 {
     print ("<pre>" . print_r($data, true) . "</pre>");
 }
+
+// Функция удобочитаемости на странице. Сокращает данные о жанрах, актерах, описании
+function getMoviesProp($row, $prop, $limit_simvol)
+{
+    if (strlen($row[$prop]) >= $limit_simvol){
+        echo substr($row[$prop], 0, $limit_simvol) . "...";
+    } else {
+        echo $row[$prop];
+    }
+}
