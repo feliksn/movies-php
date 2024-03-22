@@ -44,6 +44,11 @@ function showRawData($data)
     print ("<pre>" . print_r($data, true) . "</pre>");
 }
 
+// Функция возвращает обрезанную строку с "..." если ее длина превышает определенное кол-во символов 
+function getShortStr($str, $maxLen){
+    return strlen($str) > $maxLen ? substr($str, 0, $maxLen) . "..." : $str;
+}
+
 // Функция удобочитаемости на странице. Сокращает данные о жанрах, актерах, описании
 function getMoviesProp($row, $prop, $limit_simvol)
 {
