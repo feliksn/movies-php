@@ -49,12 +49,23 @@ function getShortStr($str, $maxLen){
     return strlen($str) > $maxLen ? substr($str, 0, $maxLen) . "..." : $str;
 }
 
-// Функция удобочитаемости на странице. Сокращает данные о жанрах, актерах, описании
-function getMoviesProp($row, $prop, $limit_simvol)
-{
-    if (strlen($row[$prop]) >= $limit_simvol){
-        echo substr($row[$prop], 0, $limit_simvol) . "...";
-    } else {
-        echo $row[$prop];
+// Функция возвращает данные всех фильмов для главной страницы
+// Все приготовления и изменения данных должны происходить перед загрузкой страницы.
+// А на самой странце показывем только готовы данные без каких-либо функций и изменений
+function getMoviesData(){
+    $rows = getDBdata("SELECT * FROM data ORDER BY id LIMIT 8");
+    $rowIndex = 0;
+    $result = [];
+    foreach ($rows as $row) {
+        $result[$rowIndex] = array(
+            "title" => $row["title"],
+            "year" => $row["year"],
+            "genres" => getShortStr($row["genres"], 30),
+            "cast" => getShortStr($row["cast"], 30),
+            "extract" => getShortStr($row["extract"], 90),
+            "thumbnail" => $row["thumbnail"],
+        );
+        $rowIndex++;
     }
+    return $result;
 }
