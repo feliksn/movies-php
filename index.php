@@ -23,15 +23,24 @@
                     </h5>
                     <h6 class="card-text mb-3 text-secondary"><em><?php echo $movie["cast"]; ?></em></h6>
                     <p class="card-text"><?php echo $movie["extract"]; ?></p>
-                    <button type="button" class="btn btn-primary">
+                    <!-- Создаем ссылку для перехода на страницу для отдельного фильма single-movie.php
+                    В php можно передавать параметры для страницы на которую переходим прямо в строке со ссылкой
+                    Например id. Параметр может быть любого другого названия(title, user_name, age...)
+                    Параметры может быть одним словом без пробелов и специальных симвлов, кроме нижнего подчеркивания)
+                    Параметр передаем после знака ?
+                    (http://сайт/страница.php?имя_параметра=значение_параметра -->
+                    
+                    <!-- Задача 3.1 Добавить параметр id фильма в строку ссылки -->
+                    <a href="./single-movie.php?id=" class="btn btn-primary">
                         Read more...
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
         <?php } ?>
     </div>
 </div>
+
 
 <?php 
     include "footer.php";
