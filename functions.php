@@ -58,6 +58,7 @@ function getMoviesData(){
     $result = [];
     foreach ($rows as $row) {
         $result[$rowIndex] = array(
+            "id" => $row["id"],
             "title" => $row["title"],
             "year" => $row["year"],
             "genres" => getShortStr($row["genres"], 30),
@@ -72,4 +73,20 @@ function getMoviesData(){
 
 // Задача 3.2
 // Создать функцию которая получает данные из базы для отдельного фильма по id колонке в таблице
-// Функция будет называться getMovieData. Для функции будет аргумент $id фильма 
+// Функция будет называться getMovieData. Для функции будет аргумент $id фильма
+function getMovieData($id){
+    $rows = getDBdata("SELECT * FROM data WHERE id = '$id'");
+    $result = [];
+    foreach ($rows as $row) {
+        $result[$id] = array(
+            "id" => $row["id"],
+            "title" => $row["title"],
+            "year" => $row["year"],
+            "genres" => $row["genres"],
+            "cast" => $row["cast"],
+            "extract" => $row["extract"],
+            "thumbnail" => $row["thumbnail"],
+        );  
+    }
+    return $result;
+} 
