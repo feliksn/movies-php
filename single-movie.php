@@ -6,25 +6,28 @@
     // Задача 3.3
     // Вызвать функцию получения данных фильма по параметру $id и записать ее в переменную $movie
     // $movie = фукцния_получения_данных_отдельного_фильма($id)
+    $movie = getMovieData($id);
 ?>
 
 <!-- Задача 3.4
 Добавить данные фильма в разметку хтмл из переменной $movie -->
 <div class="container">
+<?php foreach($movie as $mov) { ?>
     <div class="row">
         <div class="col-4">
-            <img src="movie-thumbnail.img" alt="Movie thumbnail">
+            <img src="./content/movies-thumbnails/<?php echo $mov["thumbnail"]; ?>" alt="Movie thumbnail">
         </div>
         <div class="col-8">
             <h5>
-                Movie title<br>
-                <small>(movie year)</small>
+               <?php echo $mov["title"]; ?><br>
+                <small>(<?php echo $mov["year"]; ?>)</small>
             </h5>
-            <p>Movie genres</p>
-            <p>Movie cast</p>
-            <p>Movie extract</p>
+            <p><?php echo $mov["genres"]; ?></p>
+            <p><?php echo $mov["cast"]; ?></p>
+            <p><?php echo $mov["extract"]; ?></p>
         </div>
     </div>
+    <?php } ?>
 </div>
 
 <?php
