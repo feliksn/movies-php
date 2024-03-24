@@ -31,7 +31,7 @@
                     (http://сайт/страница.php?имя_параметра=значение_параметра -->
                     
                     <!-- Задача 3.1 Добавить параметр id фильма в строку ссылки -->
-                    <a href="./single-movie.php?id=" class="btn btn-primary">
+                    <a href="./single-movie.php?<?php echo 'id='.$movie["id"].'&thumbnail='.$movie["thumbnail"].'&genres='.$movie["genres"].'&tite='.$movie["title"].'&year='.$movie["year"].'&cast='.$movie["cast"].'&extract='.$movie["extract"]?>" class="btn btn-primary">
                         Read more...
                     </a>
                 </div>
