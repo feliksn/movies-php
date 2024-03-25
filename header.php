@@ -34,10 +34,10 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#genresModal">Genres</a>
+                        <a class="nav-link" href="./genres.php">Genres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#castModal">Cast</a>
+                        <a class="nav-link" href="#">Cast</a>
                     </li>
                     <!-- <li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
