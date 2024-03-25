@@ -50,8 +50,6 @@ function getShortStr($str, $maxLen){
 }
 
 // Функция возвращает данные всех фильмов для главной страницы
-// Все приготовления и изменения данных должны происходить перед загрузкой страницы.
-// А на самой странце показывем только готовы данные без каких-либо функций и изменений
 function getMoviesData(){
     $rows = getDBdata("SELECT * FROM data ORDER BY id LIMIT 8");
     $rowIndex = 0;
@@ -71,22 +69,9 @@ function getMoviesData(){
     return $result;
 }
 
-// Задача 3.2
-// Создать функцию которая получает данные из базы для отдельного фильма по id колонке в таблице
-// Функция будет называться getMovieData. Для функции будет аргумент $id фильма
-function getMovieData($id){
+// Функция возвращает данные фильма по id параметру
+function getMovieData(){
+    $id = $_GET["id"];
     $rows = getDBdata("SELECT * FROM data WHERE id = '$id'");
-    $result = [];
-    foreach ($rows as $row) {
-        $result[$id] = array(
-            "id" => $row["id"],
-            "title" => $row["title"],
-            "year" => $row["year"],
-            "genres" => $row["genres"],
-            "cast" => $row["cast"],
-            "extract" => $row["extract"],
-            "thumbnail" => $row["thumbnail"],
-        );  
-    }
-    return $result;
+    return $rows[0];
 } 
