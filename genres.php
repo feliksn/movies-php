@@ -10,13 +10,13 @@
 ?>
 
 <div class="container py-3">
+    <div class="row row-cols-4">
     <?php foreach($genres as $genre) { ?>
-    <div class="row">
         <div class="col">
             <a href="" class="fs-5 link-offset-1 link-underline link-underline-opacity-25"><?php echo $genre['name']; ?></a>
         </div>
+        <?php } ?>
     </div>
-    <?php } ?>
 </div>
 
 <?php
