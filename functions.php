@@ -70,11 +70,21 @@ function getMovieData(){
 // Функция возвращает genres фильма из БД genres
 function getGenresData(){
     $rows = getDBdata("SELECT * FROM genres ORDER BY name ASC");
-    $new_arr = [];
-    $len = round((count($rows))/4);
-    for($i = 0; $i<$len; $i++){
-	    array_push($new_arr, $rows[$i], $rows[$i+$len], $rows[$i+2*$len], $rows[$i+3*$len]);
-    }
-    $new_arr_filter = array_filter($new_arr);
-    return $new_arr_filter;
+    return $rows;
 }
+
+// Делаем отдельную фукнцию для сетки жанров чтобы не запутаться в действии каждой функции
+// Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
+function getGenresColsData(){
+    // Получаем данные жарнов и записываем в переменную.
+    $data = getGenresData();
+    // Определяем кол-во колонок для жанров 
+    $colsLen = 4;
+    // Вычисляем максимальное кол-во жанров в каждой колонке
+    $rowsLen = ceil(count($data) / $colsLen);
+    // Разделяем главый массив данных жанров $data на макс. кол-во жанров в каждой колонке
+    $result = array_chunk($data, $rowsLen);
+    // Функция возвращает результат массив из 4 массивов по 11 элементов каждый
+    return $result;
+}
+        
