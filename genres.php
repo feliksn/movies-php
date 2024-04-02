@@ -9,7 +9,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
         <?php foreach($cols as $colIndex => $col) { ?>
             <div class="col <?php echo "order-sm-$colsOrderSM[$colIndex] order-lg-$colIndex" ?>">
-                <?php foreach($col as $genreIndex => $genre) { ?>
+                <?php foreach($col as $genre) { ?>
                     <a href="" class="fs-5 link-offset-1 link-underline link-underline-opacity-25">
                         <?php echo $genre['name']; ?>
                     </a><br>
