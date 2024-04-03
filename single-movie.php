@@ -11,6 +11,7 @@
         <div class="col-7">
             <h1><?php echo $movie["title"]; ?><br></h1>
             <p class="fs-4 text-secondary">(<?php echo $movie["year"]; ?>)</p>
+            <!-- Задача 7 - Переделать текст жанров на ссылки, которые будут вести на отдельную страницу жанра -->
             <p><?php echo $movie["genres"]; ?></p>
             <p><?php echo $movie["cast"]; ?></p>
             <p><?php echo $movie["extract"]; ?></p>
