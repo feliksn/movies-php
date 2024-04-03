@@ -89,4 +89,42 @@ function getGenresColsData(){
     $result = array_chunk($data, $rowsLen);
     return $result;
 }
-        
+     
+// превращаем строку жанров массив жанров 
+function getGenreStrToMass(){
+    // берем за основу функцию которая выводит из БД data genres строкой
+    $movie = getMovieData();
+    // присваиваем переменной конкретно строку genres то что нам надо
+    $cols_gen_str = $movie['genres'];
+    // превращаем из строки жанров в массиив 
+    $cols_gen_mass =  explode(",", $cols_gen_str);
+    // возвращаем в массив и в ХТМЛ , будем брать из этой функции через цикл уже не строку а каждый элемент
+    // чтото подобное было у нас на JS  когда жанры были в JSONE массивом
+    return $cols_gen_mass;
+}
+
+function getGenreLinkData(){
+    // берем из БД названия жанров
+    $rows = getDBdata("SELECT name FROM genres");
+    // присваиваем функцию где  Array ( [0] => Science Fiction [1] => Action )
+    $col = getGenreStrToMass();
+    // приводим массив из БД в упрощенный вид избавляемся от ['name']
+    $arr_rows = [];
+    foreach($rows as $el){
+        foreach($el as $i){
+            array_push($arr_rows, $i);
+        }
+    }
+    // проверяем на совпадение два массива - массив с БД и массив в модальном окне
+    $result = array_intersect($arr_rows, $col);
+    // превращаем названия жанров в  ключи из БД
+    $res = array_keys($result);
+    // массив для вывода в хтмл
+    $arcwarden = [];
+    // цикл присваивает дополнительную еденицу чтоб все работало корректно.... было КАМЕДИ - id=0 прибавили +1 получили id=1
+    foreach($res as $ar){
+    array_push($arcwarden, $ar+1);
+    }
+
+    return $arcwarden;
+} 
