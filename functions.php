@@ -67,7 +67,14 @@ function getMovieData(){
     return $rows[0];
 } 
 
-// Функция возвращает genres фильма из БД genres
+// Функция возвращает genre фильма по id параметру
+function getGenreData(){
+    $id = $_GET["id"];
+    $rows = getDBdata("SELECT * FROM genres WHERE id = '$id'");
+    return $rows[0];
+} 
+
+// Функция возвращает genre фильма из БД genres
 function getGenresData(){
     $rows = getDBdata("SELECT * FROM genres ORDER BY name ASC");
     return $rows;
