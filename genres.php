@@ -2,7 +2,7 @@
     include "header.php";
     // Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11элементов (41/4 = 10.25 = сeil(10.25) = 11)
     $cols = getGenresColsData();
-    $colsOrderSM = [1,3,2,4];
+    $colsOrderSM = [0,2,1,3];
 ?>
 
 <div class="container py-3">
