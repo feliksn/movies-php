@@ -9,6 +9,7 @@
         <?php foreach($cols as $colIndex => $colGenres) { ?>
             <div class="col <?php echo "order-sm-$colsOrderSM[$colIndex] order-lg-$colIndex" ?>">
                 <?php foreach($colGenres as $genre) { ?>
+                    <!-- Задача 6 - Сделать ссылку по клику которой будет открываться отдельная страница с названием жанра -->
                     <a href="" class="fs-5 link-offset-1 link-underline link-underline-opacity-25">
                         <?php echo $genre["name"]; ?>
                     </a><br>
