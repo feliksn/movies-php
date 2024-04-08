@@ -1,7 +1,6 @@
 <?php
     include 'header.php';
     $movie = getMovieData();
-    $genre_link = getGenreLinkData();
 ?>
 
 <div class="container py-4">
@@ -12,13 +11,11 @@
         <div class="col-7">
             <h1><?php echo $movie["title"]; ?><br></h1>
             <p class="fs-4 text-secondary">(<?php echo $movie["year"]; ?>)</p>
-            <!-- Задача 7 - Переделать текст жанров на ссылки, которые будут вести на отдельную страницу жанра -->
             <p>
-                <?php foreach($genre_link as $gen) { ?>
-                    <a href="./single-genre.php?id=<?php echo $gen['id'] ?>"> <?php echo $gen['name'] ?> </a>
+                <?php foreach($movie["genres"] as $genre) { ?>
+                    <a href="./single-genre.php?id=<?php echo $genre["id"] ?>"><?php echo $genre["name"] ?></a>
                 <?php } ?>
             </p>
-
             <p><?php echo $movie["cast"]; ?></p>
             <p><?php echo $movie["extract"]; ?></p>
         </div>
