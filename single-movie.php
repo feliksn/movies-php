@@ -16,6 +16,7 @@
                     <a href="./single-genre.php?id=<?php echo $genre["id"] ?>"><?php echo $genre["name"] ?></a>
                 <?php } ?>
             </p>
+            <!-- Задача 8 - Сделать ссылки для актеров. Так же как и для жанров -->
             <p><?php echo $movie["cast"]; ?></p>
             <p><?php echo $movie["extract"]; ?></p>
         </div>
