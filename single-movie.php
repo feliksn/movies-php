@@ -17,7 +17,11 @@
                 <?php } ?>
             </p>
             <!-- Задача 8 - Сделать ссылки для актеров. Так же как и для жанров -->
-            <p><?php echo $movie["cast"]; ?></p>
+            <p>
+                <?php foreach($movie["cast"] as $cast) { ?>
+                    <a href="./single-cast.php?id=<?php echo $cast["id"] ?>"><?php echo $cast["name"]; ?></a>
+                <?php } ?>
+            </p>
             <p><?php echo $movie["extract"]; ?></p>
         </div>
     </div>
