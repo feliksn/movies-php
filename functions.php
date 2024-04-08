@@ -63,8 +63,11 @@ function getMoviesData(){
 // Функция возвращает данные фильма по id параметру
 function getMovieData(){
     $id = $_GET["id"];
-    $rows = getDBdata("SELECT * FROM data WHERE id = '$id'");
-    return $rows[0];
+    $movie = getDBdata("SELECT * FROM data WHERE id = '$id'")[0];
+    $genresSqlStr = '"' . str_replace(',', '","', $movie["genres"]) . '"';
+    $genresArray = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSqlStr)");
+    $movie["genres"] = $genresArray;
+    return $movie; 
 } 
 
 // Функция возвращает genre фильма по id параметру
@@ -89,11 +92,3 @@ function getGenresColsData(){
     $result = array_chunk($data, $rowsLen);
     return $result;
 }
-     
-function getGenreLinkData(){
-    $movie = getMovieData();
-    $cols_gen_str = $movie['genres'];
-    $gen_in_DBdata = preg_replace('~[^,]+(?=(,|$))~', '"$0"', $cols_gen_str);
-    $gen_mass = getDBdata("SELECT name, id FROM genres WHERE name IN ($gen_in_DBdata)");
-    return $gen_mass;
-} 
