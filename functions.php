@@ -70,7 +70,7 @@ function getMovieData()
     $genresSqlStr = '"' . str_replace(',', '","', $movie["genres"]) . '"';
     $castsSqlStr = '"' . str_replace(',', '","', $movie["cast"]) . '"';
     $genresArray = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSqlStr)");
-    $castsArray = getDBdata("SELECT name, id FROM cast WHERE name IN ($castsSqlStr)");
+    $castsArray = getDBdata("SELECT * FROM cast WHERE name IN ($castsSqlStr)");
     $movie["genres"] = $genresArray;
     $movie["cast"] = $castsArray;
     return $movie;
@@ -108,4 +108,30 @@ function getCastData()
     $id = $_GET["id"];
     $rows = getDBdata("SELECT * FROM cast WHERE id = '$id'");
     return $rows[0];
+}
+
+// Функция возвращает уникальные буквы из БД cast (для менюшки поиска по буквам)
+function getCastUniqueLetterData()
+{
+    $cast = getDBdata("SELECT DISTINCT letter FROM cast ORDER BY letter ASC");
+    return $cast;
+}
+
+// Функция возвращает cast фильма по letter параметру
+function getCastLetterData()
+{
+    $letter = $_GET["letter"];
+    $cast = getDBdata("SELECT * FROM cast WHERE letter = '$letter'");
+    return $cast;
+}
+
+// Делаем отдельную фукнцию для сетки актеров чтобы не запутаться в действии каждой функции
+// Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
+function getCastColsData()
+{
+    $data = getCastLetterData();
+    $colsLen = 4;
+    $rowsLen = ceil(count($data) / $colsLen);
+    $result = array_chunk($data, $rowsLen);
+    return $result;
 }
