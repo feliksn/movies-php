@@ -1,6 +1,6 @@
-<?php 
-    include "header.php";
-    $cast = getCastData();
+<?php
+include "header.php";
+$cast = getCastData();
 ?>
 
 <div class="container">
@@ -8,5 +8,5 @@
 </div>
 
 <?php
-    include "footer.php"
+include "footer.php"
 ?>
