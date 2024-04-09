@@ -1,6 +1,6 @@
-<?php 
-    include "header.php";
-    $genre = getGenreData()
+<?php
+include "header.php";
+$genre = getGenreData()
 ?>
 
 <div class="container">
@@ -8,5 +8,5 @@
 </div>
 
 <?php
-    include "footer.php"
+include "footer.php"
 ?>
