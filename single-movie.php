@@ -1,6 +1,6 @@
 <?php
-    include 'header.php';
-    $movie = getMovieData();
+include 'header.php';
+$movie = getMovieData();
 ?>
 
 <div class="container py-4">
@@ -12,13 +12,13 @@
             <h1><?php echo $movie["title"]; ?><br></h1>
             <p class="fs-4 text-secondary">(<?php echo $movie["year"]; ?>)</p>
             <p>
-                <?php foreach($movie["genres"] as $genre) { ?>
+                <?php foreach ($movie["genres"] as $genre) { ?>
                     <a href="./single-genre.php?id=<?php echo $genre["id"] ?>"><?php echo $genre["name"] ?></a>
                 <?php } ?>
             </p>
             <!-- Задача 8 - Сделать ссылки для актеров. Так же как и для жанров -->
             <p>
-                <?php foreach($movie["cast"] as $cast) { ?>
+                <?php foreach ($movie["cast"] as $cast) { ?>
                     <a href="./single-cast.php?id=<?php echo $cast["id"] ?>"><?php echo $cast["name"]; ?></a>
                 <?php } ?>
             </p>
@@ -28,5 +28,5 @@
 </div>
 
 <?php
-    include 'footer.php';
+include 'footer.php';
 ?>
