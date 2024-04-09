@@ -1,6 +1,6 @@
 <?php
-    // Подключаем функциональность сайта из файла function.php
-    include "functions.php";
+// Подключаем функциональность сайта из файла function.php
+include "functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,9 +23,7 @@
             <a class="navbar-brand" href="/">
                 <img src="./images/logo.svg" alt="Bootstrap" width="41.25" height="33">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,7 +35,8 @@
                         <a class="nav-link" href="./genres.php">Genres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cast</a>
+                        <!-- добавил в href после letter = 5 чтоб при загрузке сразу показывало первую букву и актеров -->
+                        <a class="nav-link" href="./cast.php?letter=5">Cast</a>
                     </li>
                     <!-- <li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
