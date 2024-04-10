@@ -12,7 +12,7 @@ $cast_movies = getCastIdMovieData($cast['movies']);
         <?php foreach ($cast_movies as $cast_movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
-                    <img src="./content/movies-thumbnails/<?php echo $cast_movie["thumbnail"]; ?>" class="card-img-top" alt="Movie thumbnail">
+                    <img src="./content/movies-thumbnails/<?php echo $cast_movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">
                     <div class="card-header border border-0"><?php echo $cast_movie["genres"]; ?></div>
                     <div class="card-body">
                         <h5 class="card-title mb-3">

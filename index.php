@@ -13,7 +13,7 @@ $movies = getMoviesData();
         <?php foreach ($movies as $movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
-                    <img src="./content/movies-thumbnails/<?php echo $movie["thumbnail"]; ?>" class="card-img-top" alt="Movie thumbnail">
+                    <img src="./content/movies-thumbnails/<?php echo $movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">
                     <div class="card-header border border-0"><?php echo $movie["genres"]; ?></div>
                     <div class="card-body">
                         <h5 class="card-title mb-3">
