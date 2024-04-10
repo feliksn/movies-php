@@ -44,7 +44,7 @@ function getShortStr($str, $maxLen)
 // Функция возвращает данные всех фильмов для главной страницы
 function getMoviesData()
 {
-    $rows = getDBdata("SELECT * FROM data ORDER BY id LIMIT 8");
+    $rows = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
     $rowIndex = 0;
     $result = [];
     foreach ($rows as $row) {
@@ -66,7 +66,7 @@ function getMoviesData()
 function getMovieData()
 {
     $id = $_GET["id"];
-    $movie = getDBdata("SELECT * FROM data WHERE id = '$id'")[0];
+    $movie = getDBdata("SELECT * FROM movies WHERE id = '$id'")[0];
     $genresSqlStr = '"' . str_replace(',', '","', $movie["genres"]) . '"';
     $castsSqlStr = '"' . str_replace(',', '","', $movie["cast"]) . '"';
     $genresArray = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSqlStr)");
@@ -134,4 +134,23 @@ function getCastColsData()
     $rowsLen = ceil(count($data) / $colsLen);
     $result = array_chunk($data, $rowsLen);
     return $result;
+}
+
+// Функция возвращает данные всех фильмов для выбранного актера или жанра на single-cast.php или single-genre.php
+function getCastIdMovieData($id_mov)
+{
+    $movies_mass = getDBdata("SELECT * FROM movies WHERE id IN ($id_mov)");
+    $new_movies_mass = [];
+    foreach ($movies_mass as $movie) {
+        array_push($new_movies_mass, [
+            "id" => $movie["id"],
+            "title" => $movie["title"],
+            "year" => $movie["year"],
+            "genres" => getShortStr($movie["genres"], 30),
+            "cast" => getShortStr($movie["cast"], 30),
+            "extract" => getShortStr($movie["extract"], 90),
+            "thumbnail" => $movie["thumbnail"],
+        ]);
+    };
+    return $new_movies_mass;
 }
