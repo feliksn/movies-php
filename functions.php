@@ -1,5 +1,7 @@
 <?php
 
+// ---------------------------- GLOBAL
+
 // Создаем функцию подключения к базе данных и получения данных по sql запросу, который передаем как аргумент функции
 function getDBdata($sql)
 {
@@ -41,6 +43,10 @@ function getShortStr($str, $maxLen)
     return strlen($str) > $maxLen ? substr($str, 0, $maxLen) . "..." : $str;
 }
 
+
+
+// ---------------------------- MOVIES
+
 // Функция возвращает данные всех фильмов для главной страницы
 function getMoviesData()
 {
@@ -76,6 +82,9 @@ function getMovieData()
     return $movie;
 }
 
+
+// ---------------------------- GENRES
+
 // Функция возвращает genre фильма по id параметру
 function getGenreData()
 {
@@ -101,6 +110,9 @@ function getGenresColsData()
     $result = array_chunk($data, $rowsLen);
     return $result;
 }
+
+
+// ----------------------------- ACTORS
 
 // Функция возвращает cast фильма по id параметру
 function getCastData()
