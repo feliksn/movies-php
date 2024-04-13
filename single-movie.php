@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-$movie = getMovieData();
+$movie = getSingleMovie();
 ?>
 
 <div class="container py-4">

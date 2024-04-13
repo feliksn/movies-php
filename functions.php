@@ -48,7 +48,7 @@ function getShortStr($str, $maxLen)
 // ---------------------------- MOVIES
 
 // Функция возвращает данные всех фильмов для главной страницы
-function getMoviesData()
+function getMovies()
 {
     $rows = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
     $rowIndex = 0;
@@ -69,7 +69,7 @@ function getMoviesData()
 }
 
 // Функция возвращает данные фильма по id параметру
-function getMovieData()
+function getSingleMovie()
 {
     $id = $_GET["id"];
     $movie = getDBdata("SELECT * FROM movies WHERE id = '$id'")[0];
@@ -86,7 +86,7 @@ function getMovieData()
 // ---------------------------- GENRES
 
 // Функция возвращает genre фильма по id параметру
-function getGenreData()
+function getSingleGenre()
 {
     $id = $_GET["id"];
     $rows = getDBdata("SELECT * FROM genres WHERE id = '$id'");
@@ -94,7 +94,7 @@ function getGenreData()
 }
 
 // Функция возвращает genre фильма из БД genres
-function getGenresData()
+function getGenres()
 {
     $rows = getDBdata("SELECT * FROM genres ORDER BY name ASC");
     return $rows;
@@ -102,7 +102,7 @@ function getGenresData()
 
 // Делаем отдельную фукнцию для сетки жанров чтобы не запутаться в действии каждой функции
 // Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
-function getGenresColsData()
+function getGenresInCols()
 {
     $data = getGenresData();
     $colsLen = 4;
@@ -115,7 +115,7 @@ function getGenresColsData()
 // ----------------------------- ACTORS
 
 // Функция возвращает cast фильма по id параметру
-function getCastData()
+function getSingleActor()
 {
     $id = $_GET["id"];
     $rows = getDBdata("SELECT * FROM cast WHERE id = '$id'");
@@ -123,14 +123,14 @@ function getCastData()
 }
 
 // Функция возвращает уникальные буквы из БД cast (для менюшки поиска по буквам)
-function getCastUniqueLetterData()
+function getActorsLetters()
 {
     $cast = getDBdata("SELECT DISTINCT letter FROM cast ORDER BY letter ASC");
     return $cast;
 }
 
 // Функция возвращает cast фильма по letter параметру
-function getCastLetterData()
+function getActorsByLetter()
 {
     $letter = $_GET["letter"];
     $cast = getDBdata("SELECT * FROM cast WHERE letter = '$letter'");
@@ -139,7 +139,7 @@ function getCastLetterData()
 
 // Делаем отдельную фукнцию для сетки актеров чтобы не запутаться в действии каждой функции
 // Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
-function getCastColsData()
+function getActorsInCols()
 {
     $data = getCastLetterData();
     $colsLen = 4;
@@ -148,8 +148,8 @@ function getCastColsData()
     return $result;
 }
 
-// Функция возвращает данные всех фильмов для выбранного актера или жанра на single-cast.php или single-genre.php
-function getCastIdMovieData($id_mov)
+// Функция возвращает данные фильмов согласно переданного списка в параметр функции
+function getMoviesFromList($list)
 {
     $movies_mass = getDBdata("SELECT * FROM movies WHERE id IN ($id_mov)");
     $new_movies_mass = [];

@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-$cols = getGenresColsData();
+$cols = getGenresInCols();
 $colsOrderSM = [0, 2, 1, 3];
 ?>
 
