@@ -50,18 +50,17 @@ function getShortStr($str, $maxLen)
 // Функция возвращает данные всех фильмов для главной страницы
 function getMovies()
 {
-    $rows = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
-    $rowIndex = 0;
+    $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
     $result = [];
-    foreach ($rows as $row) {
-        $result[$rowIndex] = array(
-            "id" => $row["id"],
-            "title" => $row["title"],
-            "year" => $row["year"],
-            "genres" => getShortStr($row["genres"], 30),
-            "cast" => getShortStr($row["cast"], 30),
-            "extract" => getShortStr($row["extract"], 90),
-            "thumbnail" => $row["thumbnail"],
+    foreach ($movies as $movieIndex => $movie) {
+        $result[$movieIndex] = array(
+            "id" => $movie["id"],
+            "title" => $movie["title"],
+            "year" => $movie["year"],
+            "genres" => getShortStr($movie["genres"], 30),
+            "cast" => getShortStr($movie["cast"], 30),
+            "extract" => getShortStr($movie["extract"], 90),
+            "thumbnail" => $movie["thumbnail"],
         );
         $rowIndex++;
     }
@@ -72,13 +71,14 @@ function getMovies()
 function getSingleMovie()
 {
     $id = $_GET["id"];
-    $movie = getDBdata("SELECT * FROM movies WHERE id = '$id'")[0];
+    $movies = getDBdata("SELECT * FROM movies WHERE id = '$id'");
+    $movie = $movies[0];
     $genresSqlStr = '"' . str_replace(',', '","', $movie["genres"]) . '"';
-    $castsSqlStr = '"' . str_replace(',', '","', $movie["cast"]) . '"';
+    $castSqlStr = '"' . str_replace(',', '","', $movie["cast"]) . '"';
     $genresArray = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSqlStr)");
-    $castsArray = getDBdata("SELECT * FROM cast WHERE name IN ($castsSqlStr)");
+    $castArray = getDBdata("SELECT * FROM actors WHERE name IN ($castSqlStr)");
     $movie["genres"] = $genresArray;
-    $movie["cast"] = $castsArray;
+    $movie["cast"] = $castArray;
     return $movie;
 }
 
@@ -89,15 +89,15 @@ function getSingleMovie()
 function getSingleGenre()
 {
     $id = $_GET["id"];
-    $rows = getDBdata("SELECT * FROM genres WHERE id = '$id'");
-    return $rows[0];
+    $genres = getDBdata("SELECT * FROM genres WHERE id = '$id'");
+    return $genres[0];
 }
 
 // Функция возвращает genre фильма из БД genres
 function getGenres()
 {
-    $rows = getDBdata("SELECT * FROM genres ORDER BY name ASC");
-    return $rows;
+    $genres = getDBdata("SELECT * FROM genres ORDER BY name ASC");
+    return $genres;
 }
 
 // Делаем отдельную фукнцию для сетки жанров чтобы не запутаться в действии каждой функции
@@ -118,23 +118,23 @@ function getGenresInCols()
 function getSingleActor()
 {
     $id = $_GET["id"];
-    $rows = getDBdata("SELECT * FROM cast WHERE id = '$id'");
-    return $rows[0];
+    $actors = getDBdata("SELECT * FROM actors WHERE id = '$id'");
+    return $actors[0];
 }
 
 // Функция возвращает уникальные буквы из БД cast (для менюшки поиска по буквам)
 function getActorsLetters()
 {
-    $cast = getDBdata("SELECT DISTINCT letter FROM cast ORDER BY letter ASC");
-    return $cast;
+    $letters = getDBdata("SELECT DISTINCT letter FROM actors ORDER BY letter ASC");
+    return $letters;
 }
 
 // Функция возвращает cast фильма по letter параметру
 function getActorsByLetter()
 {
     $letter = $_GET["letter"];
-    $cast = getDBdata("SELECT * FROM cast WHERE letter = '$letter'");
-    return $cast;
+    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter'");
+    return $actors;
 }
 
 // Делаем отдельную фукнцию для сетки актеров чтобы не запутаться в действии каждой функции
@@ -151,10 +151,10 @@ function getActorsInCols()
 // Функция возвращает данные фильмов согласно переданного списка в параметр функции
 function getMoviesFromList($list)
 {
-    $movies_mass = getDBdata("SELECT * FROM movies WHERE id IN ($id_mov)");
-    $new_movies_mass = [];
-    foreach ($movies_mass as $movie) {
-        array_push($new_movies_mass, [
+    $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list)");
+    $result = [];
+    foreach ($movies as $movie) {
+        array_push($result, [
             "id" => $movie["id"],
             "title" => $movie["title"],
             "year" => $movie["year"],
@@ -164,5 +164,5 @@ function getMoviesFromList($list)
             "thumbnail" => $movie["thumbnail"],
         ]);
     };
-    return $new_movies_mass;
+    return $result;
 }
