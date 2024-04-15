@@ -65,19 +65,13 @@ function getSqlFromStr($str)
 function getMovies()
 {
     $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
-    $result = [];
     foreach ($movies as $movieIndex => $movie) {
-        $result[$movieIndex] = array(
-            "id" => $movie["id"],
-            "title" => $movie["title"],
-            "year" => $movie["year"],
-            "genres" => getShortStr($movie["genres"], 30),
-            "cast" => getShortStr($movie["cast"], 30),
-            "extract" => getShortStr($movie["extract"], 90),
-            "thumbnail" => $movie["thumbnail"],
-        );
+        $movie["genres"] = getShortStr($movie["genres"], 30);
+        $movie["cast"] = getShortStr($movie["cast"], 30);
+        $movie["extract"] = getShortStr($movie["extract"], 90);
+        $movies[$movieIndex] = $movie;
     }
-    return $result;
+    return $movies;
 }
 
 // Функция возвращает данные фильма по id параметру
@@ -159,17 +153,11 @@ function getActorsCols()
 function getMoviesByIdList($list)
 {
     $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list)");
-    $result = [];
     foreach ($movies as $movie) {
-        array_push($result, [
-            "id" => $movie["id"],
-            "title" => $movie["title"],
-            "year" => $movie["year"],
-            "genres" => getShortStr($movie["genres"], 30),
-            "cast" => getShortStr($movie["cast"], 30),
-            "extract" => getShortStr($movie["extract"], 90),
-            "thumbnail" => $movie["thumbnail"],
-        ]);
+        $movie["genres"] = getShortStr($movie["genres"], 30);
+        $movie["cast"] = getShortStr($movie["cast"], 30);
+        $movie["extract"] = getShortStr($movie["extract"], 90);
+        $movies[$movieIndex] = $movie;
     };
-    return $result;
+    return $movies;
 }
