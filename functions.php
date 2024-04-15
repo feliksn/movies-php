@@ -153,7 +153,7 @@ function getActorsCols()
 function getMoviesByIdList($list)
 {
     $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list)");
-    foreach ($movies as $movie) {
+    foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
         $movie["cast"] = getShortStr($movie["cast"], 30);
         $movie["extract"] = getShortStr($movie["extract"], 90);
