@@ -5,7 +5,6 @@ $genre_movies = getMoviesFromList($genre['movies']);
 ?>
 
 <div class="container">
-    <!-- ЖАНР -->
     <h1><?php echo $genre["name"]; ?></h1>
 
     <div id="genre-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
