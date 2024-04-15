@@ -76,7 +76,6 @@ function getMovies()
             "extract" => getShortStr($movie["extract"], 90),
             "thumbnail" => $movie["thumbnail"],
         );
-        $rowIndex++;
     }
     return $result;
 }
