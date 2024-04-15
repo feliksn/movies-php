@@ -6,10 +6,6 @@
     max-width: 50px;
 }
 
-a:hover {
-  color: hotpink;
-}
-
-.active {
-  color: red;
+a:hover{
+  color:blue;
 }
