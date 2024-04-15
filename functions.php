@@ -61,7 +61,7 @@ function getSqlFromStr($str)
 
 // ---------------------------- MOVIES
 
-// Функция возвращает данные всех фильмов для главной страницы
+// Функция возвращает все данные первых 8 фильмов
 function getMovies()
 {
     $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
@@ -96,10 +96,10 @@ function getSingleMovie()
     return $movie;
 }
 
-
+  
 // ---------------------------- GENRES
 
-// Функция возвращает genre фильма по id параметру
+// Функция возвращает данные отдельного жанра по id параметру
 function getSingleGenre()
 {
     $id = $_GET["id"];
@@ -107,16 +107,15 @@ function getSingleGenre()
     return $genres[0];
 }
 
-// Функция возвращает genre фильма из БД genres
+// Функция возвращает данные всех жанров
 function getGenres()
 {
     $genres = getDBdata("SELECT * FROM genres ORDER BY name ASC");
     return $genres;
 }
 
-// Делаем отдельную фукнцию для сетки жанров чтобы не запутаться в действии каждой функции
-// Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
-function getGenresInCols()
+// Функция возвращает данные всех жанров в разделенные на колонки
+function getGenresCols()
 {
     $data = getGenresData();
     $colsLen = 4;
@@ -128,7 +127,7 @@ function getGenresInCols()
 
 // ----------------------------- ACTORS
 
-// Функция возвращает cast фильма по id параметру
+// Функция возвращает данные отдельного аткера по id параметру
 function getSingleActor()
 {
     $id = $_GET["id"];
@@ -136,24 +135,23 @@ function getSingleActor()
     return $actors[0];
 }
 
-// Функция возвращает уникальные буквы из БД cast (для менюшки поиска по буквам)
-function getActorsLetters()
+// Функция возвращает уникальные буквы из БД actors (для менюшки поиска по буквам)
+function getUniqueActorsLetters()
 {
     $letters = getDBdata("SELECT DISTINCT letter FROM actors ORDER BY letter ASC");
     return $letters;
 }
 
-// Функция возвращает cast фильма по letter параметру
-function getActorsByLetter()
+// Функция возвращает всех актеров по первой букве имени
+function getActors()
 {
     $letter = $_GET["letter"];
     $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter'");
     return $actors;
 }
 
-// Делаем отдельную фукнцию для сетки актеров чтобы не запутаться в действии каждой функции
-// Фукния возвращает массив из 4 колонок. Каждая колонка это массив из 11 элементов (41/4 = 10.25 = сeil(10.25) = 11)
-function getActorsInCols()
+// Функция возвращает данные всех актеров разделенные на колонки
+function getActorsCols()
 {
     $data = getCastLetterData();
     $colsLen = 4;
@@ -162,7 +160,7 @@ function getActorsInCols()
     return $result;
 }
 
-// Функция возвращает данные фильмов согласно переданного списка в параметр функции
+// Функция возвращает данные фильмов по переданному списку в параметр функции
 function getMoviesFromList($list)
 {
     $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list)");
