@@ -16,7 +16,6 @@ $movie = getSingleMovie();
                     <a href="./single-genre.php?id=<?php echo $genre["id"] ?>"><?php echo $genre["name"] ?></a>
                 <?php } ?>
             </p>
-            <!-- Задача 8 - Сделать ссылки для актеров. Так же как и для жанров -->
             <p>
                 <?php foreach ($movie["cast"] as $cast) { ?>
                     <a href="./single-actor.php?id=<?php echo $cast["id"] ?>"><?php echo $cast["name"]; ?></a>
