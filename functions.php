@@ -87,12 +87,12 @@ function getSingleMovie()
     $id = $_GET["id"];
     $movies = getDBdata("SELECT * FROM movies WHERE id = '$id'");
     $movie = $movies[0];
-    $genresSqlStr = '"' . str_replace(',', '","', $movie["genres"]) . '"';
-    $castSqlStr = '"' . str_replace(',', '","', $movie["cast"]) . '"';
-    $genresArray = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSqlStr)");
-    $castArray = getDBdata("SELECT * FROM actors WHERE name IN ($castSqlStr)");
-    $movie["genres"] = $genresArray;
-    $movie["cast"] = $castArray;
+    $genresSql = getSqlFromStr($movie["genres"]);
+    $castSql = getSqlFromStr($movie["cast"]);
+    $genres = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSql)");
+    $cast = getDBdata("SELECT * FROM actors WHERE name IN ($castSql)");
+    $movie["genres"] = $genres;
+    $movie["cast"] = $cast;
     return $movie;
 }
 
@@ -117,11 +117,9 @@ function getGenres()
 // Функция возвращает данные всех жанров в разделенные на колонки
 function getGenresCols()
 {
-    $data = getGenresData();
-    $colsLen = 4;
-    $rowsLen = ceil(count($data) / $colsLen);
-    $result = array_chunk($data, $rowsLen);
-    return $result;
+    $genres = getGenres();
+    $genresCols = getArrCols($genres);
+    return $genresCols;
 }
 
 
@@ -153,11 +151,9 @@ function getActors()
 // Функция возвращает данные всех актеров разделенные на колонки
 function getActorsCols()
 {
-    $data = getCastLetterData();
-    $colsLen = 4;
-    $rowsLen = ceil(count($data) / $colsLen);
-    $result = array_chunk($data, $rowsLen);
-    return $result;
+    $actors = getActors();
+    $actorsCols = getArrCols($actors);
+    return $actorsCols;
 }
 
 // Функция возвращает данные фильмов по переданному списку в параметр функции
