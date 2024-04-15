@@ -43,6 +43,20 @@ function getShortStr($str, $maxLen)
     return strlen($str) > $maxLen ? substr($str, 0, $maxLen) . "..." : $str;
 }
 
+// Разделяет массив, переданный как 1-й параметр, на кол-во колонок, переданные как 2-й параметр
+// По умолчанию кол-во колонок = 4. Если не указвать второй параметр при вызове функции, то кол-во колонок всегда будет = 4
+function getArrCols($arr, $colsLen=4)
+{
+    $rowsLen = ceil(count($arr) / $colsLen);
+    $arrCols = array_chunk($arr, $rowsLen);
+    return $arrCols;
+}
+
+// Функция пределывает обычную строку со значениями через запятую на строку со значениями для sql запроса
+function getSqlFromStr($str)
+{
+    return '"' . str_replace(',', '","', $str) . '"';
+}
 
 
 // ---------------------------- MOVIES
