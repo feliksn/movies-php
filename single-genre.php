@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $genre = getSingleGenre();
-$genre_movies = getMoviesFromList($genre['movies']);
+$genre_movies = getMoviesByIdList($genre['movies']);
 ?>
 
 <div class="container">

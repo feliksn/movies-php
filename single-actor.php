@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $actor = getSingleActor();
-$actor_movies = getMoviesFromList($actor['movies']);
+$actor_movies = getMoviesByIdList($actor['movies']);
 ?>
 
 <div class="container">

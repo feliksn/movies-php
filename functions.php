@@ -155,8 +155,8 @@ function getActorsCols()
     return $actorsCols;
 }
 
-// Функция возвращает данные фильмов по переданному списку в параметр функции
-function getMoviesFromList($list)
+// Функция возвращает данные фильмов по переданному списку id в параметр функции
+function getMoviesByIdList($list)
 {
     $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list)");
     $result = [];
