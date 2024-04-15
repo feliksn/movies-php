@@ -9,7 +9,9 @@ $colsOrderSM = [0, 2, 1, 3];
     <div class="row">
         <div class="col-xs-1 text-center">
             <?php foreach ($letters as $letter) { ?>
-                <a href="./actors.php?letter=<?php echo $letter["letter"]; ?>" <?php echo ($_GET['letter'] == $letter["letter"]) ? "class='fs-5 link-offset-1 link-underline link-underline-opacity-25 active'" : "class='fs-5 link-offset-1 link-underline link-underline-opacity-25'"; ?>>
+                <?php $activeClass = $_GET["letter"] == $letter["letter"] ? "active" : "" ?>
+                <a  href="./actors.php?letter=<?php echo $letter["letter"]; ?>"
+                    class="fs-5 link-offset-1 link-underline link-underline-opacity-25 <?php echo $activeClass ?>">
                     <?php echo $letter["letter"]; ?>
                 </a>
             <?php  } ?>
