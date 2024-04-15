@@ -137,7 +137,7 @@ function getUniqueActorsLetters()
 function getActors()
 {
     $letter = $_GET["letter"];
-    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter'");
+    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter' ORDER BY name ASC");
     return $actors;
 }
 
