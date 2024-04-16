@@ -62,9 +62,16 @@ function getSqlFromStr($str)
 // ---------------------------- MOVIES
 
 // Функция возвращает все данные первых 8 фильмов
-function getMovies()
+
+$page = 0;
+
+if(isset($_GET["page"])){
+    $page = $_GET["page"] * 8 - 8;
+};
+
+function getMovies($page)
 {
-    $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT 8");
+    $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT $page, 8");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
         $movie["cast"] = getShortStr($movie["cast"], 30);
