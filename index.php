@@ -1,11 +1,6 @@
 <?php
 include "header.php";
-$movies = getMovies($page);
-// Задача 9 - Добавить в проект функциональность страниц (пока только для главной странцы)
-// При передаче в адресную строку параметра page=номер_страницы, нужно чтобы показывались 8 фильмов согласно номеру страницы
-// page=1 - певрые 8 фильмов 1-8
-// page=2 - вторый 8 фильмов 9-16
-// ... и так далее
+$movies = getMovies();
 ?>
 
 <!-- главный контейнер -->
@@ -26,8 +21,8 @@ $movies = getMovies($page);
                             <small class="text-body-tertiary">(<?php echo $movie["year"]; ?>)</small>
                         </h5>
                         <h6 class="card-text mb-3 text-secondary"><em><?php echo $movie["cast"]; ?></em></h6>
-                        <p class="card-text"><?php echo $movie["extract"]; ?></p>
-                        <a href="./single-movie.php?id=<?php echo $movie["id"] ?>" class="btn btn-primary">
+                        <p class="card-text"><?php echo $movie["extract"] ?></p>
+                        <a href="./single-movie.php?id=<?php echo $movie["id"]; ?>" class="btn btn-primary">
                             Read more...
                         </a>
                     </div>
