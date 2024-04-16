@@ -2,6 +2,7 @@
 include "header.php";
 $actor = getSingleActor();
 $actor_movies = getMoviesByIdList($actor['movies']);
+// Задача 10.2 - Ограничить кол-во фильмов до 8 для отдельного актера
 ?>
 
 <div class="container">
