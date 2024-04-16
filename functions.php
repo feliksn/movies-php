@@ -64,9 +64,10 @@ function getSqlFromStr($str)
 // Функция возвращает все данные первых 8 фильмов
 function getMovies()
 {
-    $pageNumber = $_GET["page"];
+    // Это сокращенная форма условия. Если в $_GET["page"] что-то будет записано, то это и вернет. А если ничего не будет записано, то вернет 1
+    $pageNumber = $_GET["page"] ?? 1;
     $moviesOnPage = 8;
-    $sqlStartPos = isset($pageNumber) ? $pageNumber * $moviesOnPage - $moviesOnPage : 0; 
+    $sqlStartPos = $pageNumber * $moviesOnPage - $moviesOnPage; 
     $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT $sqlStartPos, $moviesOnPage");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
