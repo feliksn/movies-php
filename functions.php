@@ -9,14 +9,14 @@ function getDBdata($sql)
     $username = "db_movies_user";
     $password = "db_movies_pass";
     $dbname = "db_movies";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-    if (!$conn) {
-        die("Не удалось подлючиться к базе данных: " . mysqli_connect_error());
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    if ($conn->connect_error) {
+        die("Не удалось подлючиться к базе данных: " . $conn->connect_error);
     }
 
     $data = $conn->query($sql);
-
+    
     if ($data->num_rows > 0) {
         $result = [];
         while ($row = $data->fetch_assoc()) {
@@ -25,9 +25,9 @@ function getDBdata($sql)
     } else {
         $result = "Каких-либо записей не найдено!";
     }
-
+    
     mysqli_close($conn);
-
+    
     return $result;
 }
 
