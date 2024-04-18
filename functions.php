@@ -61,12 +61,17 @@ function getSqlFromStr($str)
 
 // ---------------------------- MOVIES
 
-// Функция возвращает все данные первых 8 фильмов
+// Функция возвращает массив с 4 типами данных о фильмах. Данные из этой функции можно использовать в для построения пагинации страниц
+// list - список 8 фильмов
+// length - кол-во фильмов
+// moviesOnPage - кол-вот фильмов на странице
+// pageNumber - номер актуальной страницы
 function getMovies()
 {
     $pageNumber = isset($_GET["page"]) && !empty($_GET["page"]) ? $_GET["page"] : 1;
     $moviesOnPage = 8;
-    $sqlStartPos = $pageNumber * $moviesOnPage - $moviesOnPage; 
+    $sqlStartPos = $pageNumber * $moviesOnPage - $moviesOnPage;
+    $moviesLen = getDBdata("SELECT COUNT(id) as total FROM movies")[0]["total"];
     $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT $sqlStartPos, $moviesOnPage");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
@@ -74,7 +79,12 @@ function getMovies()
         $movie["extract"] = getShortStr($movie["extract"], 90);
         $movies[$movieIndex] = $movie;
     }
-    return $movies;
+    return array(
+        "list"          => $movies,
+        "length"        => $moviesLen,
+        "moviesOnPage"  => $moviesOnPage,
+        "pageNumber"    => $pageNumber
+    );
 }
 
 // Функция возвращает данные фильма по id параметру

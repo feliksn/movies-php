@@ -10,7 +10,7 @@ $movies = getMovies();
 
     <!-- контейнер для фильмов -->
     <div id="movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
-        <?php foreach ($movies as $movie) { ?>
+        <?php foreach ($movies["list"] as $movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
                     <img src="./content/movies-thumbnails/<?php echo $movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">
