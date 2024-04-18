@@ -8,12 +8,12 @@ $colsOrderSM = [0, 2, 1, 3];
 <div class="container py-3">
     <ul class="nav nav-pills">
         <?php foreach ($letters as $letter) { ?>
-            <?php $activeClass = $_GET["letter"] == $letter["letter"] ? "active" : "" ?>
+            <?php $activeClass = $_GET["letter"] == $letter ? "active" : "" ?>
             <li class="nav-item">
-                <a  href="./actors.php?letter=<?php echo $letter["letter"]; ?>"
+                <a  href="./actors.php?letter=<?php echo $letter; ?>"
                     class="nav-link <?php echo $activeClass ?>"
                     aria-current="page">
-                    <?php echo $letter["letter"]; ?>
+                    <?php echo $letter; ?>
                 </a>
             </li>
         <?php  } ?>

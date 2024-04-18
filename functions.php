@@ -133,6 +133,10 @@ function getSingleActor()
 function getUniqueActorsLetters()
 {
     $letters = getDBdata("SELECT DISTINCT letter FROM actors ORDER BY letter ASC");
+    foreach($letters as $letterIndex => $letter)
+    {
+        $letters[$letterIndex] = $letter["letter"];
+    }
     return $letters;
 }
 
