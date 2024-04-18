@@ -1,3 +1,11 @@
+<!-- Задача 11 - Сделать рабочую пагинацию -->
+<!-- В примере ниже, можно использовать данные из переменной с фильмами -->
+<?php
+    echo "Номер страницы: " . $movies["pageNumber"] . "<br>";
+    echo "Кол-во фильмов: " . $movies["length"] . "<br>";
+    echo "Кол-во фильмов на странице: " .  $movies["moviesOnPage"];
+?>
+
 <!-- контейнер для пагинации -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
