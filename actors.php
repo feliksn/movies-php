@@ -9,10 +9,11 @@ $colsOrderSM = [0, 2, 1, 3];
     <ul class="nav nav-pills">
         <?php foreach ($letters as $letter) { ?>
             <?php $activeClass = $_GET["letter"] == $letter ? "active" : "" ?>
+            <?php $ariaCurrentPage = $_GET["letter"] == $letter ? "aria-current='page'" : "" ?>
             <li class="nav-item">
                 <a  href="./actors.php?letter=<?php echo $letter; ?>"
                     class="nav-link <?php echo $activeClass ?>"
-                    aria-current="page">
+                    <?php echo $ariaCurrentPage ?>>
                     <?php echo $letter; ?>
                 </a>
             </li>
