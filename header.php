@@ -36,7 +36,7 @@ include "functions.php";
                     </li>
                     <li class="nav-item">
                         <!-- добавил в href после letter = 5 чтоб при загрузке сразу показывало первую букву и актеров -->
-                        <a class="nav-link" href="./actors.php?letter=5">Cast</a>
+                        <a class="nav-link" href="./actors.php?letter=5">Actors</a>
                     </li>
                     <!-- <li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
