@@ -58,6 +58,71 @@ function getSqlFromStr($str)
     return '"' . str_replace(',', '","', $str) . '"';
 }
 
+// Функция возвращает данные для каждого элемента пагинации
+// Функция принимает два параметра. $page - номер актуальной страницы. $pages - кол-во всех страниц
+function getPagination($page, $pages)
+{
+    // Функция создает ссылку с данными, передавая ей аргумент номера актуальной страницы
+    function getLink($page="")
+    {
+        return array(
+            "class" => "", 
+            "text" => $page,
+            "link" => "/?page=" . $page
+        );
+    }
+
+    // Заполнить переменные данными
+    $prevPageArrow;
+    $firstPage;
+    $emptyLeft;
+    
+    $page1;
+    $page2;
+    $page3;
+    
+    $emptyRight;
+    $lastPage;
+    $nextPageArrow;
+    
+    // Заполнить условия case данными
+    switch ($page) {
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case $pages - 2:
+
+            break;
+        case $pages - 1:
+
+            break;
+        case $pages:
+
+            break;
+    }
+
+    // Функция возвращает ассоциированный массив ключ=значение, по которым будем получать данные и заполнять пагинацию
+    return array(
+        "prevPageArrow" => $prevPageArrow,
+        "firstPage" => $firstPage,
+        "emptyRight" => $emptyRight,
+
+        "page1" => $page1,
+        "page2" => $page2,
+        "page3" => $page3,
+        
+        "emptyLeft" => $emptyLeft,
+        "lastPage" => $lastPage,
+        "nextPageArrow" => $nextPageArrow,
+    );
+}
+
 
 // ---------------------------- MOVIES
 
