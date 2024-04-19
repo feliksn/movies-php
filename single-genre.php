@@ -2,7 +2,6 @@
 include "header.php";
 $genre = getSingleGenre();
 $genre_movies = getMoviesByIdList($genre['movies']);
-// Задача 10.1 - Ограничить кол-во фильмов до 8 для отдельного жанра
 ?>
 
 <div class="container">
