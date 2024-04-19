@@ -1,35 +1,65 @@
 <!-- Задача 11 - Сделать рабочую пагинацию -->
-<!-- В примере ниже, можно использовать данные из переменной с фильмами -->
 <?php
-    echo "Номер страницы: " . $movies["pageNumber"] . "<br>";
-    echo "Кол-во фильмов: " . $movies["length"] . "<br>";
-    echo "Кол-во фильмов на странице: " .  $movies["moviesOnPage"];
+    // Получить данные из фукнции и применить их к каждому элементу пагинации
+    // $pagination = getPagination();
 ?>
-
 <!-- контейнер для пагинации -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <!-- ссылка на предыдущую страницу -->
         <li class="page-item">
-            <a class="page-link" aria-label="Previous">
+            <a  class="page-link"
+                href=""
+                aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <!-- ссылка на первую страницу  -->
-        <li class="page-item"><a class="page-link" href="./?page=1">1</a></li>
+        <li class="page-item">
+            <a  class="page-link"
+                href="">
+                
+            </a>
+        </li>
         <!-- пустая ссылка с тремя точками -->
-        <li class="page-item disabled"><span class="page-link">...</span></li>
-        <!-- тут будем менять номера страницы через js -->
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
-        <li class="page-item"><a class="page-link" href="">4</a></li>
+        <li class="page-item disabled">
+            <span class="page-link">...</span>
+        </li>
+        <!-- тут будем менять номера постоянных страниц -->
+        <li class="page-item">
+            <a  class="page-link"
+                href="">
+                
+            </a>
+        </li>
+        <li class="page-item">
+            <a  class="page-link"
+                href="">
+                
+            </a>
+        </li>
+        <li class="page-item">
+            <a  class="page-link"
+                href="">
+                
+            </a>
+        </li>
         <!-- пустая ссылка с тремя точками -->
-        <li class="page-item disabled"><span class="page-link">...</span></li>
+        <li class="page-item disabled">
+            <span class="page-link">...</span>
+        </li>
         <!-- ссылка на последнюю страницу -->
-        <li class="page-item"><a class="page-link" href="">5</a></li>
+        <li class="page-item">
+            <a  class="page-link"
+                href="">
+                
+            </a>
+        </li>
         <!-- ссылка следующая страница -->
         <li class="page-item">
-            <a class="page-link" aria-label="Next">
+            <a  class="page-link"
+                href=""
+                aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
