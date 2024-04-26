@@ -156,8 +156,10 @@ function getSingle($pos)
 
 // ---------------------------- MOVIES
 
+
+
 // Функция возвращает массив с 4 типами данных о фильмах. Данные из этой функции можно использовать в для построения пагинации страниц
-function getMovies()
+function getMovies($list)
 {
     // Кол-во фильмов на одной странице
     $moviesOnPage = 8;
@@ -170,7 +172,7 @@ function getMovies()
     // Кол-во страниц в зависимости от кол-ва фильмов на одной странице
     $pages = ceil($length / $moviesOnPage);
     // Все данные 8 фильмов для определенной страницы
-    $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT $firstMoviePos, $moviesOnPage");
+    $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list) LIMIT $firstMoviePos, $moviesOnPage");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
         $movie["cast"] = getShortStr($movie["cast"], 30);
@@ -184,6 +186,20 @@ function getMovies()
         "pages"  => $pages
     );
 }
+
+// Функция которая возвращает просто строку из чисел 1,2,3... 6095
+// столько сколько фильмов чтоб применить этот список для аргумента функции getMovies($list)  страницы index.php
+function movies_list()
+{
+    $length = getDBdata("SELECT COUNT(id) as total FROM movies")[0]["total"];
+    $mov = "";
+    for($i = 1; $i<=$length; $i++){
+       $mov = $mov . $i . ', ';
+    };
+    $str = substr($mov, 0, -2);
+    return $str;
+};
+
 
 // Функция возвращает данные фильма по id параметру
 function getSingleMovie()
@@ -246,17 +262,4 @@ function getActorsCols()
     $actors = getActors();
     $actorsCols = getArrCols($actors);
     return $actorsCols;
-}
-
-// Функция возвращает данные фильмов по переданному списку id в параметр функции
-function getMoviesByIdList($list)
-{
-    $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list) LIMIT 8");
-    foreach ($movies as $movieIndex => $movie) {
-        $movie["genres"] = getShortStr($movie["genres"], 30);
-        $movie["cast"] = getShortStr($movie["cast"], 30);
-        $movie["extract"] = getShortStr($movie["extract"], 90);
-        $movies[$movieIndex] = $movie;
-    };
-    return $movies;
 }

@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $genre = getSingle("genres");
-$genre_movies = getMoviesByIdList($genre['movies']);
+$genre_movies = getMovies($genre['movies']);
 // Задача 12.1 - Активировать пагинацию для фильмов отдельного жанра
 ?>
 
@@ -9,7 +9,7 @@ $genre_movies = getMoviesByIdList($genre['movies']);
     <h1><?php echo $genre["name"]; ?></h1>
 
     <div id="genre-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
-        <?php foreach ($genre_movies as $genre_movie) { ?>
+        <?php foreach ($genre_movies["movies"] as $genre_movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
                     <img src="./content/movies-thumbnails/<?php echo $genre_movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">

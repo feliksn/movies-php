@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $actor = getSingle("actors");
-$actor_movies = getMoviesByIdList($actor['movies']);
+$actor_movies = getMovies($actor['movies']);
 // Задача 12.2 - Активировать пагинацию для фильмов отдельного аткера
 ?>
 
@@ -9,7 +9,7 @@ $actor_movies = getMoviesByIdList($actor['movies']);
     <h1><?php echo $actor["name"]; ?></h1>
 
     <div id="cast-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
-        <?php foreach ($actor_movies as $actor_movie) { ?>
+        <?php foreach ($actor_movies["movies"] as $actor_movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
                     <img src="./content/movies-thumbnails/<?php echo $actor_movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">
