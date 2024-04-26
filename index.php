@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $movies_list = movies_list();
-$movies = getMovies($movies_list);
+$movies = getMovies($movies_list["str"], $movies_list["length"]);
 ?>
 
 <!-- главный контейнер -->

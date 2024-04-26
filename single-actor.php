@@ -1,15 +1,15 @@
 <?php
 include "header.php";
 $actor = getSingle("actors");
-$actor_movies = getMovies($actor['movies']);
+$movies = getMovies($actor["single"]['movies'], $actor["len_str_mov"]);
 // Задача 12.2 - Активировать пагинацию для фильмов отдельного аткера
 ?>
 
 <div class="container">
-    <h1><?php echo $actor["name"]; ?></h1>
+    <h1><?php echo $actor["single"]["name"]; ?></h1>
 
     <div id="cast-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
-        <?php foreach ($actor_movies["movies"] as $actor_movie) { ?>
+        <?php foreach ($movies["movies"] as $actor_movie) { ?>
             <div class="col">
                 <div class="card border border-0 shadow-sm">
                     <img src="./content/movies-thumbnails/<?php echo $actor_movie["thumbnail"]; ?>" onError="this.src='./images/movie-default.png'" class="card-img-top" alt="Movie thumbnail">
