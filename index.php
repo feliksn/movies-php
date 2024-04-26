@@ -1,6 +1,7 @@
 <?php
 include "header.php";
-$movies = getMovies();
+$movies_list = movies_list();
+$movies = getMovies($movies_list);
 ?>
 
 <!-- главный контейнер -->
