@@ -146,6 +146,13 @@ function getPagination($page, $pages)
     );
 }
 
+// Функция возвращает данные отдельной позиции(актер или жанр) по id параметру
+function getSingle($pos)
+{
+    $id = $_GET["id"];
+    $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'");
+    return $single[0];
+}
 
 // ---------------------------- MOVIES
 
@@ -196,14 +203,6 @@ function getSingleMovie()
   
 // ---------------------------- GENRES
 
-// Функция возвращает данные отдельного жанра по id параметру
-function getSingleGenre()
-{
-    $id = $_GET["id"];
-    $genres = getDBdata("SELECT * FROM genres WHERE id = '$id'");
-    return $genres[0];
-}
-
 // Функция возвращает данные всех жанров
 function getGenres()
 {
@@ -221,14 +220,6 @@ function getGenresCols()
 
 
 // ----------------------------- ACTORS
-
-// Функция возвращает данные отдельного аткера по id параметру
-function getSingleActor()
-{
-    $id = $_GET["id"];
-    $actors = getDBdata("SELECT * FROM actors WHERE id = '$id'");
-    return $actors[0];
-}
 
 // Функция возвращает уникальные буквы из БД actors (для менюшки поиска по буквам)
 function getUniqueActorsLetters()
