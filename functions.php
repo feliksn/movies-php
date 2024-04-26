@@ -150,16 +150,19 @@ function getPagination($page, $pages)
 function getSingle($pos)
 {
     $id = $_GET["id"];
-    $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'");
-    return $single[0];
+    $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'")[0];
+    $str_mov = explode(",", $single["movies"]);
+    $len_str_mov = count($str_mov);
+    return array(
+       "single" => $single,
+       "len_str_mov" => $len_str_mov
+    );
 }
 
 // ---------------------------- MOVIES
 
-
-
 // Функция возвращает массив с 4 типами данных о фильмах. Данные из этой функции можно использовать в для построения пагинации страниц
-function getMovies($list)
+function getMovies($list, $length)
 {
     // Кол-во фильмов на одной странице
     $moviesOnPage = 8;
@@ -167,8 +170,6 @@ function getMovies($list)
     $page = isset($_GET["page"]) && !empty($_GET["page"]) ? $_GET["page"] : 1;
     // Позиция фильма с которой надо получить 8 фильмов
     $firstMoviePos = $page * $moviesOnPage - $moviesOnPage;
-    // Кол-во всех фильмов по запросу sql
-    $length = getDBdata("SELECT COUNT(id) as total FROM movies")[0]["total"];
     // Кол-во страниц в зависимости от кол-ва фильмов на одной странице
     $pages = ceil($length / $moviesOnPage);
     // Все данные 8 фильмов для определенной страницы
@@ -197,7 +198,10 @@ function movies_list()
        $mov = $mov . $i . ', ';
     };
     $str = substr($mov, 0, -2);
-    return $str;
+    return array(
+        "str" => $str,
+        "length" => $length
+    );
 };
 
 
