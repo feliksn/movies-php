@@ -27,5 +27,5 @@ $movie = getSingleMovie();
 </div>
 
 <?php
-include 'footer.php';
+
 ?>
