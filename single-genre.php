@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-$genre = getSingleGenre();
+$genre = getSingle("genres");
 $genre_movies = getMoviesByIdList($genre['movies']);
 // Задача 12.1 - Активировать пагинацию для фильмов отдельного жанра
 ?>
