@@ -58,6 +58,7 @@ function getSqlFromStr($str)
     return '"' . str_replace(',', '","', $str) . '"';
 }
 
+
 // Функция возвращает данные для каждого элемента пагинации
 // Функция принимает два параметра. $page - номер актуальной страницы. $pages - кол-во всех страниц
 function getPagination($page, $pages)
@@ -65,14 +66,31 @@ function getPagination($page, $pages)
     // Функция создает массив с данными ссыкли, передавая ей аргумент номера страницы. Если при вызове функции не передавать номер страницы, функция вернет массив с пустыми данными. Это будет нужно для пустых ссылок без номеров 
     function getLink($page="")
     {
-        return array(
-            // Данные класса. В свойство класса будет записывать класс для скрытия ненужных ссылок на странице, добавляя класс бустрап .d-none и другие классы если будет необходимость
-            "class" => "",
-            // Данные номера страницы. Обычный текст чтобы показывать в ссылке
-            "text" => $page,
-            // Данные ссылки. Полноценная ссылка в виде строки, которую будем передавать атрибут href
-            "link" => "/?page=" . $page
-        );
+        if($_SERVER['PHP_SELF'] == "/index.php"){
+            return array(
+                "class" => "",
+                "text" => $page,
+                "link" => "/?page=" . $page
+            );
+        }
+
+        $genre = getSingle("genres");
+        if($_SERVER['PHP_SELF'] == "/single-genre.php"){
+            return array(
+                "class" => "",
+                "text" => $page,
+                "link" => "single-genre.php?id=" . $genre["single"]["id"] . "&page=" . $page
+            );
+        }
+
+        $actor = getSingle("actors");
+        if($_SERVER['PHP_SELF'] == "/single-actor.php"){
+            return array(
+                "class" => "",
+                "text" => $page,
+                "link" => "single-actor.php?id=" . $actor["single"]["id"] . "&page=" . $page
+            );
+        } 
     }
 
     // Записываем данные ссылки на предыдущюю страницу исползуюя номер активной страницы $page - 1 
