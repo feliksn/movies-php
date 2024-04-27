@@ -58,6 +58,19 @@ function getSqlFromStr($str)
     return '"' . str_replace(',', '","', $str) . '"';
 }
 
+// Функция возвращает данные отдельной позиции(актер или жанр) по id параметру
+function getSingle($pos)
+{
+    $id = $_GET["id"];
+    $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'")[0];
+    $str_mov = explode(",", $single["movies"]);
+    $len_str_mov = count($str_mov);
+    return array(
+       "single" => $single,
+       "len_str_mov" => $len_str_mov
+    );
+}
+
 
 // Функция возвращает данные для каждого элемента пагинации
 // Функция принимает два параметра. $page - номер актуальной страницы. $pages - кол-во всех страниц
@@ -74,8 +87,8 @@ function getPagination($page, $pages)
             );
         }
 
-        $genre = getSingle("genres");
         if($_SERVER['PHP_SELF'] == "/single-genre.php"){
+            $genre = getSingle("genres");
             return array(
                 "class" => "",
                 "text" => $page,
@@ -83,8 +96,8 @@ function getPagination($page, $pages)
             );
         }
 
-        $actor = getSingle("actors");
         if($_SERVER['PHP_SELF'] == "/single-actor.php"){
+            $actor = getSingle("actors");
             return array(
                 "class" => "",
                 "text" => $page,
@@ -148,6 +161,22 @@ function getPagination($page, $pages)
         $page3["class"] = "active";        
     }
 
+    if($pages == 1) {
+        $prevPageArrow["class"] = "d-none";
+        $firstPage["class"] = "d-none";
+        $emptyLeft["class"] = "d-none";
+        $page1["class"] = "d-none";
+        $page2["class"] = "d-none";
+        $page3["class"] = "d-none";
+        $emptyRigh["class"] = "d-none";
+        $lastPage["class"] = "d-none";
+        $nextPageArrow["class"] = "d-none";
+    }
+/*
+    if($pages <= 7){
+
+    }
+*/
     // Функция возвращает ассоциированный массив ключ=значение, по которым будем получать данные и заполнять пагинацию
     return array(
         "prevPageArrow" => $prevPageArrow,
@@ -161,19 +190,6 @@ function getPagination($page, $pages)
         "emptyLeft" => $emptyLeft,
         "lastPage" => $lastPage,
         "nextPageArrow" => $nextPageArrow,
-    );
-}
-
-// Функция возвращает данные отдельной позиции(актер или жанр) по id параметру
-function getSingle($pos)
-{
-    $id = $_GET["id"];
-    $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'")[0];
-    $str_mov = explode(",", $single["movies"]);
-    $len_str_mov = count($str_mov);
-    return array(
-       "single" => $single,
-       "len_str_mov" => $len_str_mov
     );
 }
 
