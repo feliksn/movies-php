@@ -161,11 +161,17 @@ function getPagination($page, $pages)
         $nextPageArrow["class"] = "d-none";
     }
 
-    /*
     if($pages == 2){
-
+        $page1 = getLink(1);
+        $page1["class"] = "active";
+        $page2 = getLink(2);
+        if($page == 2){
+            $page1["class"] = "";
+            $page2["class"] = "active";
+        }
+        $page3["class"] = "d-none";
     }
-*/
+
     if($pages == 3){
         $firstPage["class"] = "d-none";
         $lastPage["class"] = "d-none";
