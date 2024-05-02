@@ -289,16 +289,3 @@ function getActorsCols()
     $actorsCols = getArrCols($actors);
     return $actorsCols;
 }
-
-// Функция возвращает данные фильмов по переданному списку id в параметр функции
-function getMoviesByIdList($list)
-{
-    $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list) LIMIT 8");
-    foreach ($movies as $movieIndex => $movie) {
-        $movie["genres"] = getShortStr($movie["genres"], 30);
-        $movie["cast"] = getShortStr($movie["cast"], 30);
-        $movie["extract"] = getShortStr($movie["extract"], 90);
-        $movies[$movieIndex] = $movie;
-    };
-    return $movies;
-}
