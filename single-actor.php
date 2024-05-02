@@ -1,8 +1,7 @@
 <?php
 include "header.php";
 $actor = getSingleActor();
-$actor_movies = getMoviesByIdList($actor['movies']);
-// Задача 12.2 - Активировать пагинацию для фильмов отдельного аткера
+$movies = getMovies($actor['movies']);
 ?>
 
 <div class="container">

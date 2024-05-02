@@ -150,20 +150,22 @@ function getPagination($page, $pages)
 // ---------------------------- MOVIES
 
 // Функция возвращает массив с 4 типами данных о фильмах. Данные из этой функции можно использовать в для построения пагинации страниц
-function getMovies()
+function getMovies($list = false)
 {
+    // Список фильмов по id. Параметр функции по умолчанию = false. Если в параметр функции передадим список фильмов, то в запрос базы данных добавиться дополнительный параметр (результат переменных $moviesLength и $movies)
+    $sqlList = $list ? " WHERE id IN ($list)" : "";
     // Кол-во фильмов на одной странице
     $moviesOnPage = 8;
     // Номер актуальной страницы
-    $page = isset($_GET["page"]) && !empty($_GET["page"]) ? $_GET["page"] : 1;
+    $currPage = isset($_GET["page"]) && !empty($_GET["page"]) ? $_GET["page"] : 1;
     // Позиция фильма с которой надо получить 8 фильмов
-    $firstMoviePos = $page * $moviesOnPage - $moviesOnPage;
+    $firstMoviePos = $currPage * $moviesOnPage - $moviesOnPage;
     // Кол-во всех фильмов по запросу sql
-    $length = getDBdata("SELECT COUNT(id) as total FROM movies")[0]["total"];
+    $moviesLength = getDBdata("SELECT COUNT(id) as total FROM movies $sqlList")[0]["total"];
     // Кол-во страниц в зависимости от кол-ва фильмов на одной странице
-    $pages = ceil($length / $moviesOnPage);
+    $maxPage = ceil($moviesLength / $moviesOnPage);
     // Все данные 8 фильмов для определенной страницы
-    $movies = getDBdata("SELECT * FROM movies ORDER BY id LIMIT $firstMoviePos, $moviesOnPage");
+    $movies = getDBdata("SELECT * FROM movies $sqlList ORDER BY id LIMIT $firstMoviePos, $moviesOnPage");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
         $movie["cast"] = getShortStr($movie["cast"], 30);
@@ -171,10 +173,10 @@ function getMovies()
         $movies[$movieIndex] = $movie;
     }
     return array(
-        "movies" => $movies,
-        "length" => $length,
-        "page"   => $page,
-        "pages"  => $pages
+        "list"      => $movies,
+        "length"    => $moviesLength,
+        "currPage"  => $currPage,
+        "maxPage"   => $maxPage
     );
 }
 
