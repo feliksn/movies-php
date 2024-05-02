@@ -58,6 +58,11 @@ function getSqlFromStr($str)
     return '"' . str_replace(',', '","', $str) . '"';
 }
 
+// функция возвращает параметр id страницы
+function getPageID(){
+    return isset($_GET["id"]) && !empty($_GET["id"]) ?  $_GET["id"] : "";
+}
+
 // Функция возвращает данные для каждого элемента пагинации
 // Функция принимает два параметра. $page - номер актуальной страницы. $pages - кол-во всех страниц
 function getPagination($page, $pages)
@@ -65,13 +70,17 @@ function getPagination($page, $pages)
     // Функция создает массив с данными ссыкли, передавая ей аргумент номера страницы. Если при вызове функции не передавать номер страницы, функция вернет массив с пустыми данными. Это будет нужно для пустых ссылок без номеров 
     function getLink($page="")
     {
+        // Получаем id страницы из функции
+        $id = getPageID();
+        // Если id страницы не пустой, то создаем строку для ссылки и позже вставляем в массив данных о ссылке
+        $id = $id !== "" ? "id=$id&" : $id;
         return array(
             // Данные класса. В свойство класса будет записывать класс для скрытия ненужных ссылок на странице, добавляя класс бустрап .d-none и другие классы если будет необходимость
             "class" => "",
             // Данные номера страницы. Обычный текст чтобы показывать в ссылке
             "text" => $page,
             // Данные ссылки. Полноценная ссылка в виде строки, которую будем передавать атрибут href
-            "link" => "/?page=" . $page
+            "link" => "?" . $id . "page=" . $page
         );
     }
 
@@ -183,7 +192,7 @@ function getMovies($list = false)
 // Функция возвращает данные фильма по id параметру
 function getSingleMovie()
 {
-    $id = $_GET["id"];
+    $id = getPageID();
     $movies = getDBdata("SELECT * FROM movies WHERE id = '$id'");
     $movie = $movies[0];
     $genresSql = getSqlFromStr($movie["genres"]);
@@ -201,7 +210,7 @@ function getSingleMovie()
 // Функция возвращает данные отдельного жанра по id параметру
 function getSingleGenre()
 {
-    $id = $_GET["id"];
+    $id = getPageID();
     $genres = getDBdata("SELECT * FROM genres WHERE id = '$id'");
     return $genres[0];
 }
@@ -227,7 +236,7 @@ function getGenresCols()
 // Функция возвращает данные отдельного аткера по id параметру
 function getSingleActor()
 {
-    $id = $_GET["id"];
+    $id = getPageID();
     $actors = getDBdata("SELECT * FROM actors WHERE id = '$id'");
     return $actors[0];
 }
