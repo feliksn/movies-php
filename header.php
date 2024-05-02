@@ -18,7 +18,7 @@ include "functions.php";
 <body class="bg-light">
 
     <!-- навигационная панель -->
-    <nav class="navbar navbar-expand-lg bg-white border-bottom ">
+    <nav class="navbar navbar-expand-md bg-white border-bottom ">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img src="./images/logo.svg" alt="Bootstrap" width="41.25" height="33">
