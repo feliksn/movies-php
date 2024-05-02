@@ -64,8 +64,8 @@ function getPageID(){
 }
 
 // Функция возвращает данные для каждого элемента пагинации
-// Функция принимает два параметра. $page - номер актуальной страницы. $pages - кол-во всех страниц
-function getPagination($page, $pages)
+// Функция принимает два параметра. $currPage - номер актуальной страницы. $maxPage - последняя страница
+function getPagination($currPage, $maxPage)
 {
     // Функция создает массив с данными ссыкли, передавая ей аргумент номера страницы. Если при вызове функции не передавать номер страницы, функция вернет массив с пустыми данными. Это будет нужно для пустых ссылок без номеров 
     function getLink($page="")
@@ -84,58 +84,58 @@ function getPagination($page, $pages)
         );
     }
 
-    // Записываем данные ссылки на предыдущюю страницу исползуюя номер активной страницы $page - 1 
-    $prevPageArrow = getLink($page - 1);
+    // Записываем данные ссылки на предыдущюю страницу исползуюя номер активной страницы $currPage - 1 
+    $prevPageArrow = getLink($currPage - 1);
     // Записываем данные для ссылки на первую страницу. Первая страницы всегда будет первой)))
     $firstPage = getLink(1);
     // Записываем данные для пустой ссылки. Она не имеет каких-либо текста либо ссылки на какую-либо страницу. Поэтому не передаем в функцию getLink() каких-либо данные о номере страницы. Тут эти данные не нужны. Однако пстая ссылка содержит массив с данными(class, text, link). Позже будем использовать эти данные а именно class, для того чтобы скрывать пустую ссылку в ненужных местах добавляя класс бутстрапа .d-none
     $emptyLeft = getLink();
     
     // Данные ссылки которая всегда меньше на 1 чем актуальная
-    $page1 = getLink($page - 1);
+    $page1 = getLink($currPage - 1);
     // Актуальная ссылка
-    $page2 = getLink($page);
+    $page2 = getLink($currPage);
     // После того как создали ссылку с массивом данных, записываем активный класс к центральной ссылке 
     $page2["class"] = "active";
     // Данные ссылки которая всегда больше на 1 чем актуальная
-    $page3 = getLink($page + 1);
+    $page3 = getLink($currPage + 1);
     
     // Пустая ссылка справа без номера страницы
     $emptyRight = getLink();
-    // Данные ссылки на последнюю страницу - это параметр $pages, т.е. кол-во всех страниц, в зависимости от кол-ва фильмов на странице
-    $lastPage = getLink($pages);
+    // Данные ссылки на последнюю страницу - это параметр $maxPage, т.е. кол-во всех страниц, в зависимости от кол-ва фильмов на странице
+    $lastPage = getLink($maxPage);
     // Данные ссылки на следующую страницу - $page + 1
-    $nextPageArrow = getLink($page + 1);
+    $nextPageArrow = getLink($currPage + 1);
 
-    if($page == 1){
+    if($currPage == 1){
         $prevPageArrow["class"] = "disabled";
-        $page1 = getLink($page);
+        $page1 = getLink($currPage);
         $page1["class"] = "active";
-        $page2 = getLink($page + 1);
-        $page3 = getLink($page + 2);
+        $page2 = getLink($currPage + 1);
+        $page3 = getLink($currPage + 2);
     }
 
-    if($page <= 2){
+    if($currPage <= 2){
         $firstPage["class"] = "d-none";
     }
 
-    if($page <= 3){
+    if($currPage <= 3){
         $emptyLeft["class"] = "d-none";
     }
 
-    if($page >= $pages - 2){
+    if($currPage >= $maxPage - 2){
         $emptyRight["class"] = "d-none";
     }
 
-    if($page >= $pages - 1){
+    if($currPage >= $maxPage - 1){
         $lastPage["class"] = "d-none";
     }
 
-    if($page == $pages){
+    if($currPage == $maxPage){
         $nextPageArrow["class"] = "disabled";
-        $page1 = getLink($pages - 2);        
-        $page2 = getLink($pages - 1);        
-        $page3 = getLink($pages);
+        $page1 = getLink($maxPage - 2);        
+        $page2 = getLink($maxPage - 1);        
+        $page3 = getLink($maxPage);
         $page3["class"] = "active";        
     }
 
