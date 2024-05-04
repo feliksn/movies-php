@@ -62,6 +62,7 @@ $pagination = getPagination($movies["page"], $movies["pages"]);
         <button type="button" class="btn btn-primary mb-3" id="btnGoToPage">Go to page</button>
     </div>
     <div class="col-auto">
+        <!-- Задача 13.4 - Расширить поле ввода для трехзначных цифр (чтобы была видна каждая цифра) -->
         <input type="text" class="form-control input-go-to-page" id="inputGoToPage">
     </div>
 </form>

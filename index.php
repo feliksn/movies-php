@@ -7,6 +7,7 @@ $movies = getMovies($movies_list["str"], $movies_list["length"]);
 <!-- главный контейнер -->
 <div class="container">
     <!-- Нзвание страницы -->
+    <!-- Задача 13.1 - Добавить в заголовок h1 текст "Found all movies: 1234" -->
     <h1>Movies</h1>
 
     <!-- контейнер для фильмов -->
