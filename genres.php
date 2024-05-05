@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-$genresCols = getGenresCols();
+$genresCols = getArrCols("genres");
 $colsOrderSM = [0, 2, 1, 3];
 ?>
 

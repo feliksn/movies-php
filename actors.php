@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 $letters = getUniqueActorsLetters();
-$actorsCols = getActorsCols();
+$actorsCols = getArrCols("actors");
 $colsOrderSM = [0, 2, 1, 3];
 ?>
 

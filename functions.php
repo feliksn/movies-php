@@ -10,13 +10,13 @@ function getDBdata($sql)
     $password = "db_movies_pass";
     $dbname = "db_movies";
     $conn = new mysqli($servername, $username, $password, $dbname);
-    
+
     if ($conn->connect_error) {
         die("Не удалось подлючиться к базе данных: " . $conn->connect_error);
     }
 
     $data = $conn->query($sql);
-    
+
     if ($data->num_rows > 0) {
         $result = [];
         while ($row = $data->fetch_assoc()) {
@@ -25,9 +25,9 @@ function getDBdata($sql)
     } else {
         $result = "Каких-либо записей не найдено!";
     }
-    
+
     mysqli_close($conn);
-    
+
     return $result;
 }
 
@@ -43,12 +43,21 @@ function getShortStr($str, $maxLen)
     return strlen($str) > $maxLen ? substr($str, 0, $maxLen) . "..." : $str;
 }
 
+// функция возвращает параметр страницы
+function getPageParametr($parameter, $otherParameter)
+{
+    return isset($_GET[$parameter]) && !empty($_GET[$parameter]) ?  $_GET[$parameter] : $otherParameter;
+}
+
 // Разделяет массив, переданный как 1-й параметр, на кол-во колонок, переданные как 2-й параметр
 // По умолчанию кол-во колонок = 4. Если не указвать второй параметр при вызове функции, то кол-во колонок всегда будет = 4
-function getArrCols($arr, $colsLen=4)
+function getArrCols($pos)
 {
-    $rowsLen = ceil(count($arr) / $colsLen);
-    $arrCols = array_chunk($arr, $rowsLen);
+    $letter = getPageParametr("letter", "");
+    $posWhere = $pos === "actors" ? " WHERE letter = '$letter' " : "";
+    $sqlz = getDBdata("SELECT * FROM $pos $posWhere ORDER BY name ASC");
+    $rowsLen = ceil(count($sqlz) / 4);
+    $arrCols = array_chunk($sqlz, $rowsLen);
     return $arrCols;
 }
 
@@ -64,10 +73,12 @@ function getSingle($pos)
     $id = $_GET["id"];
     $single = getDBdata("SELECT * FROM $pos WHERE id = '$id'")[0];
     $str_mov = explode(",", $single["movies"]);
-    $len_str_mov = count($str_mov);
+    $moviesQuantity = count($str_mov);
     return array(
-       "single" => $single,
-       "len_str_mov" => $len_str_mov
+        "id" => $single["id"],
+        "name" => $single["name"],
+        "movies" => $single["movies"],
+        "moviesQuantity" => $moviesQuantity
     );
 }
 
@@ -77,33 +88,15 @@ function getSingle($pos)
 function getPagination($page, $pages)
 {
     // Функция создает массив с данными ссыкли, передавая ей аргумент номера страницы. Если при вызове функции не передавать номер страницы, функция вернет массив с пустыми данными. Это будет нужно для пустых ссылок без номеров 
-    function getLink($page="")
+    function getLink($page = "")
     {
-        if($_SERVER['PHP_SELF'] == "/index.php"){
-            return array(
-                "class" => "",
-                "text" => $page,
-                "link" => "/?page=" . $page
-            );
-        }
-
-        if($_SERVER['PHP_SELF'] == "/single-genre.php"){
-            $genre = getSingle("genres");
-            return array(
-                "class" => "",
-                "text" => $page,
-                "link" => "single-genre.php?id=" . $genre["single"]["id"] . "&page=" . $page
-            );
-        }
-
-        if($_SERVER['PHP_SELF'] == "/single-actor.php"){
-            $actor = getSingle("actors");
-            return array(
-                "class" => "",
-                "text" => $page,
-                "link" => "single-actor.php?id=" . $actor["single"]["id"] . "&page=" . $page
-            );
-        } 
+        $id = getPageParametr("id", "");
+        $id = $id !== "" ? "id=" . $id . "&" : $id;
+        return array(
+            "class" => "",
+            "text" => $page,
+            "link" => "?" . $id . "page=" . $page
+        );
     }
 
     $prevPageArrow = getLink($page - 1);
@@ -117,7 +110,7 @@ function getPagination($page, $pages)
     $lastPage = getLink($pages);
     $nextPageArrow = getLink($page + 1);
 
-    if($page == 1){
+    if ($page == 1) {
         $prevPageArrow["class"] = "disabled";
         $page1 = getLink($page);
         $page1["class"] = "active";
@@ -125,31 +118,31 @@ function getPagination($page, $pages)
         $page3 = getLink($page + 2);
     }
 
-    if($page <= 2){
+    if ($page <= 2) {
         $firstPage["class"] = "d-none";
     }
 
-    if($page <= 3){
+    if ($page <= 3) {
         $emptyLeft["class"] = "d-none";
     }
 
-    if($page >= $pages - 2){
+    if ($page >= $pages - 2) {
         $emptyRight["class"] = "d-none";
     }
 
-    if($page >= $pages - 1){
+    if ($page >= $pages - 1) {
         $lastPage["class"] = "d-none";
     }
 
-    if($page == $pages){
+    if ($page == $pages) {
         $nextPageArrow["class"] = "disabled";
-        $page1 = getLink($pages - 2);        
-        $page2 = getLink($pages - 1);        
+        $page1 = getLink($pages - 2);
+        $page2 = getLink($pages - 1);
         $page3 = getLink($pages);
-        $page3["class"] = "active";        
+        $page3["class"] = "active";
     }
 
-    if($pages == 1) {
+    if ($pages == 1) {
         $prevPageArrow["class"] = "d-none";
         $firstPage["class"] = "d-none";
         $emptyLeft["class"] = "d-none";
@@ -161,18 +154,18 @@ function getPagination($page, $pages)
         $nextPageArrow["class"] = "d-none";
     }
 
-    if($pages == 2){
+    if ($pages == 2) {
         $page1 = getLink(1);
         $page1["class"] = "active";
         $page2 = getLink(2);
-        if($page == 2){
+        if ($page == 2) {
             $page1["class"] = "";
             $page2["class"] = "active";
         }
         $page3["class"] = "d-none";
     }
 
-    if($pages == 3){
+    if ($pages == 3) {
         $firstPage["class"] = "d-none";
         $lastPage["class"] = "d-none";
     }
@@ -187,7 +180,7 @@ function getPagination($page, $pages)
         "page1" => $page1,
         "page2" => $page2,
         "page3" => $page3,
-        
+
         "emptyLeft" => $emptyLeft,
         "lastPage" => $lastPage,
         "nextPageArrow" => $nextPageArrow,
@@ -197,18 +190,22 @@ function getPagination($page, $pages)
 // ---------------------------- MOVIES
 
 // Функция возвращает массив с 4 типами данных о фильмах. Данные из этой функции можно использовать в для построения пагинации страниц
-function getMovies($list, $length)
+function getMovies($list = false)
 {
+    // Список фильмов по id. Параметр функции по умолчанию = false. Если в параметр функции передадим список фильмов, то в запрос базы данных добавиться дополнительный параметр (результат переменных $moviesLength и $movies)
+    $sqlList = $list ? " WHERE id IN ($list)" : "";
     // Кол-во фильмов на одной странице
     $moviesOnPage = 8;
     // Номер актуальной страницы
-    $page = isset($_GET["page"]) && !empty($_GET["page"]) ? $_GET["page"] : 1;
+    $page = getPageParametr("page", 1);
     // Позиция фильма с которой надо получить 8 фильмов
     $firstMoviePos = $page * $moviesOnPage - $moviesOnPage;
+    // Кол-во всех фильмов по запросу sql
+    $length = getDBdata("SELECT COUNT(id) as total FROM movies $sqlList")[0]["total"];
     // Кол-во страниц в зависимости от кол-ва фильмов на одной странице
     $pages = ceil($length / $moviesOnPage);
     // Все данные 8 фильмов для определенной страницы
-    $movies = getDBdata("SELECT * FROM movies WHERE id IN ($list) LIMIT $firstMoviePos, $moviesOnPage");
+    $movies = getDBdata("SELECT * FROM movies $sqlList ORDER BY id LIMIT $firstMoviePos, $moviesOnPage");
     foreach ($movies as $movieIndex => $movie) {
         $movie["genres"] = getShortStr($movie["genres"], 30);
         $movie["cast"] = getShortStr($movie["cast"], 30);
@@ -222,23 +219,6 @@ function getMovies($list, $length)
         "pages"  => $pages
     );
 }
-
-// Функция которая возвращает просто строку из чисел 1,2,3... 6095
-// столько сколько фильмов чтоб применить этот список для аргумента функции getMovies($list)  страницы index.php
-function movies_list()
-{
-    $length = getDBdata("SELECT COUNT(id) as total FROM movies")[0]["total"];
-    $mov = "";
-    for($i = 1; $i<=$length; $i++){
-       $mov = $mov . $i . ', ';
-    };
-    $str = substr($mov, 0, -2);
-    return array(
-        "str" => $str,
-        "length" => $length
-    );
-};
-
 
 // Функция возвращает данные фильма по id параметру
 function getSingleMovie()
@@ -255,24 +235,6 @@ function getSingleMovie()
     return $movie;
 }
 
-  
-// ---------------------------- GENRES
-
-// Функция возвращает данные всех жанров
-function getGenres()
-{
-    $genres = getDBdata("SELECT * FROM genres ORDER BY name ASC");
-    return $genres;
-}
-
-// Функция возвращает данные всех жанров в разделенные на колонки
-function getGenresCols()
-{
-    $genres = getGenres();
-    $genresCols = getArrCols($genres);
-    return $genresCols;
-}
-
 
 // ----------------------------- ACTORS
 
@@ -280,25 +242,8 @@ function getGenresCols()
 function getUniqueActorsLetters()
 {
     $letters = getDBdata("SELECT DISTINCT letter FROM actors ORDER BY letter ASC");
-    foreach($letters as $letterIndex => $letter)
-    {
+    foreach ($letters as $letterIndex => $letter) {
         $letters[$letterIndex] = $letter["letter"];
     }
     return $letters;
-}
-
-// Функция возвращает всех актеров по первой букве имени
-function getActors()
-{
-    $letter = $_GET["letter"];
-    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter' ORDER BY name ASC");
-    return $actors;
-}
-
-// Функция возвращает данные всех актеров разделенные на колонки
-function getActorsCols()
-{
-    $actors = getActors();
-    $actorsCols = getArrCols($actors);
-    return $actorsCols;
 }

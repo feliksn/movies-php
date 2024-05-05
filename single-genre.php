@@ -1,12 +1,12 @@
 <?php
 include "header.php";
 $genre = getSingle("genres");
-$movies = getMovies($genre["single"]['movies'], $genre["len_str_mov"]);
+$movies = getMovies($genre['movies'], $genre["moviesQuantity"]);
 ?>
 
 <div class="container">
     <!-- Задача 13.3 - Добавить текст в заголовок h1 "Found movies by $genreName genre: 1234" -->
-    <h2>Found movies by <b><?php echo $genre["single"]["name"]; ?></b>: <?php echo $movies["length"]; ?></h2>
+    <h3>Found movies by <u><b><?php echo $genre["name"]; ?></b></u> : <?php echo $movies["length"]; ?></h3>
 
     <div id="genre-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
         <?php foreach ($movies["movies"] as $genre_movie) { ?>
