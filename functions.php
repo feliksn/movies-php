@@ -20,7 +20,7 @@ function getDBdata($sql)
     if ($data->num_rows > 0) {
         $result = [];
         while ($row = $data->fetch_assoc()) {
-            array_push($result, $row);
+            $result[] = $row;
         }
     } else {
         $result = "Каких-либо записей не найдено!";
