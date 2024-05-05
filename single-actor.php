@@ -6,7 +6,7 @@ $movies = getMovies($actor["single"]['movies'], $actor["len_str_mov"]);
 
 <div class="container">
     <!-- Задача 13.2 - Добавить текст в заголовок h1 "Found movies with $actorName: 1234" -->
-    <h2>Found movies with<b><?php echo $actor["single"]["name"]; ?></b> : <?php echo $movies["length"]; ?></h2>
+    <h2>Found movies with <b><?php echo $actor["single"]["name"]; ?></b> : <?php echo $movies["length"]; ?></h2>
 
     <div id="cast-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
         <?php foreach ($movies["movies"] as $actor_movie) { ?>
