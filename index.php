@@ -6,7 +6,9 @@ $movies = getMovies();
 <!-- главный контейнер -->
 <div class="container">
     <!-- Нзвание страницы -->
-    <h1>Movies</h1>
+    <h1 class="fw-light">All Movies
+        <small class="text-secondary">(<?php echo $movies["length"]; ?>)</small>
+    </h1>
     <!-- Цикл фильмов -->
     <?php include "movies-loop.php"; ?>
 </div>
