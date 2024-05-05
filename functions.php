@@ -245,17 +245,11 @@ function getSingleGenre()
     return $genre;
 }
 
-// Функция возвращает данные всех жанров
-function getGenres()
-{
-    $genres = getDBdata("SELECT * FROM genres ORDER BY name ASC");
-    return $genres;
-}
 
 // Функция возвращает данные всех жанров в разделенные на колонки
 function getGenresCols()
 {
-    $genres = getGenres();
+    $genres = getDBdata("SELECT * FROM genres ORDER BY name ASC");
     $genresCols = getArrCols($genres);
     return $genresCols;
 }
@@ -282,18 +276,11 @@ function getUniqueActorsLetters()
     return $letters;
 }
 
-// Функция возвращает всех актеров по первой букве имени
-function getActors()
-{
-    $letter = $_GET["letter"];
-    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter' ORDER BY name ASC");
-    return $actors;
-}
-
 // Функция возвращает данные всех актеров разделенные на колонки
 function getActorsCols()
 {
-    $actors = getActors();
+    $letter = $_GET["letter"];
+    $actors = getDBdata("SELECT * FROM actors WHERE letter = '$letter' ORDER BY name ASC");
     $actorsCols = getArrCols($actors);
     return $actorsCols;
 }
