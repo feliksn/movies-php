@@ -31,6 +31,15 @@ function getDBdata($sql)
     return $result;
 }
 
+// Фнукция возвращает данные из определенной таблицы для отдельной записи по id
+function getTableRowById($table, $id)
+{
+    return getDBdata("SELECT * FROM $table WHERE id = '$id'")[0];
+}
+
+
+// ----------------------------------- GLOBAL
+
 // Функция показывает данные, записанные в переменной, которую можно передевать как параметр функции
 function showRawData($data)
 {
@@ -215,8 +224,7 @@ function getMovies($list = false)
 function getSingleMovie()
 {
     $id = getPageID();
-    $movies = getDBdata("SELECT * FROM movies WHERE id = '$id'");
-    $movie = $movies[0];
+    $movie = getTableRowById("movies", $id);
     $genresSql = getSqlFromStr($movie["genres"]);
     $castSql = getSqlFromStr($movie["cast"]);
     $genres = getDBdata("SELECT name, id FROM genres WHERE name IN ($genresSql)");
@@ -233,8 +241,8 @@ function getSingleMovie()
 function getSingleGenre()
 {
     $id = getPageID();
-    $genres = getDBdata("SELECT * FROM genres WHERE id = '$id'");
-    return $genres[0];
+    $genre = getTableRowById("genres", $id);
+    return $genre;
 }
 
 // Функция возвращает данные всех жанров
@@ -259,8 +267,8 @@ function getGenresCols()
 function getSingleActor()
 {
     $id = getPageID();
-    $actors = getDBdata("SELECT * FROM actors WHERE id = '$id'");
-    return $actors[0];
+    $actor = getTableRowById("actors", $id);
+    return $actor;
 }
 
 // Функция возвращает уникальные буквы из БД actors (для менюшки поиска по буквам)
