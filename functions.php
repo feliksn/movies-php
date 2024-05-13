@@ -252,19 +252,17 @@ function getUniqueActorsLetters()
 
 function getSearch()
 {
-    if(isset($_POST['sumbit'])){
-        $search = $_POST['search'];
-        $single = getDBdata("SELECT * FROM movies WHERE title LIKE '%$search%' OR cast LIKE '%$search%' OR genres LIKE '%$search%'");
-        $mov = [];
-        for($i = 0; $i < count($single); $i++){
-            array_push($mov, $single[$i]["id"]);
-        }    
-        $mov_str = implode(",", $mov);
-        $len_mov = count($mov);
-    };
-        return array(
-            "movies" => $mov_str, 
-            "moviesQuantity" => $len_mov
-        );        
+    $search = $_GET['id'];
+    $search_mass_mov = getDBdata("SELECT * FROM movies WHERE title LIKE '%$search%' OR cast LIKE '%$search%' OR genres LIKE '%$search%'");
+    $mov = [];
+    for($i = 0; $i < count($search_mass_mov); $i++){
+        array_push($mov, $search_mass_mov[$i]["id"]);
+    };    
+    $str_mov = implode(",", $mov);
+    $moviesQuantity = count($mov);
+    return array(
+        "movies" => $str_mov, 
+        "moviesQuantity" => $moviesQuantity
+    );        
 }
 
