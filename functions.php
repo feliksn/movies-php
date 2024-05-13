@@ -247,3 +247,24 @@ function getUniqueActorsLetters()
     }
     return $letters;
 }
+
+//---------------------SEARCH----------------------------//
+
+function getSearch()
+{
+    if(isset($_POST['sumbit'])){
+        $search = $_POST['search'];
+        $single = getDBdata("SELECT * FROM movies WHERE title LIKE '%$search%' OR cast LIKE '%$search%' OR genres LIKE '%$search%'");
+        $mov = [];
+        for($i = 0; $i < count($single); $i++){
+            array_push($mov, $single[$i]["id"]);
+        }    
+        $mov_str = implode(",", $mov);
+        $len_mov = count($mov);
+    };
+        return array(
+            "movies" => $mov_str, 
+            "moviesQuantity" => $len_mov
+        );        
+}
+
