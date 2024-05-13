@@ -42,9 +42,9 @@ include "functions.php";
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
 					</li> -->
                 </ul>
-                <form class="d-flex" role="search" action = "search.php" method = "POST">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                    <button class="btn btn-outline-success" type="submit" name = "sumbit">Search</button>
+                <form class="d-flex" role="search" action = "search.php" method = "GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="id">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
