@@ -5,7 +5,6 @@ $movies = getMovies($actor['movies'], $actor["moviesQuantity"]);
 ?>
 
 <div class="container">
-    <!-- Задача 13.2 - Добавить текст в заголовок h1 "Found movies with $actorName: 1234" -->
     <h3>Found movies with <u><b><?php echo $actor["name"]; ?></b></u> : <?php echo $movies["length"]; ?></h3>
 
     <div id="cast-movies-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-3 g-3">
@@ -30,6 +29,30 @@ $movies = getMovies($actor['movies'], $actor["moviesQuantity"]);
         <?php } ?>
     </div>
 </div>
+
+
+<?php
+include "pagination.php";
+?>
+
+<?php if($movies["pages"] != 1 ) { 
+echo
+'
+<!-- Поиск страницы -->
+<form class="row justify-content-center g-1" action="/single-actor.php" method="GET" id="#formGoToPage">
+
+    <!-- Будем применять скрытое поле ввода -->
+    <input type="hidden"  name="id" value="' . $actor["id"] . '">
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3" id="#btnGoToPage">Go to page</button>
+    </div>
+    <div class="col-auto">
+        <input type="number" class="form-control input-go-to-page" name="page" id="#inputGoToPage" required min="1" max="' . $movies["pages"] .'">
+    </div>
+</form>
+';
+}?>
 
 <?php
 include "footer.php"
