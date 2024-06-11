@@ -6,7 +6,6 @@ $movies = getMovies();
 <!-- главный контейнер -->
 <div class="container">
     <!-- Нзвание страницы -->
-    <!-- Задача 13.1 - Добавить в заголовок h1 текст "Found all movies: 1234" -->
     <h3>Found all movies <u><b>Movies</b></u> : <?php echo $movies["length"]; ?></h3>
 
     <!-- контейнер для фильмов -->
@@ -32,6 +31,20 @@ $movies = getMovies();
         <?php } ?>
     </div>
 </div>
+
+<?php
+include "pagination.php";
+?>
+
+<!-- Поиск страницы -->
+<form class="row justify-content-center g-1" action="/" method="GET" id="#formGoToPage">
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3" id="#btnGoToPage">Go to page</button>
+    </div>
+    <div class="col-auto">
+        <input type="number" class="form-control input-go-to-page" name="page" id="#inputGoToPage" required min="1" max="<?php echo $movies["pages"]; ?>">
+    </div>
+</form>
 
 
 <?php
