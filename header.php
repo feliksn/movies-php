@@ -13,8 +13,6 @@ include "functions.php";
     <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap-icons.css">
     <link rel="stylesheet" href="./style.css">
-    <script src="./lib/jquery-3.7.1.min.js"></script>
-    <script src="./script.js"></script>
 </head>
 
 <body class="bg-light">
