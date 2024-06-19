@@ -34,4 +34,5 @@ $colsOrderSM = [0, 2, 1, 3];
 </div>
 
 <?php
+include "footer.php";
 ?>
