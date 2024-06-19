@@ -13,6 +13,8 @@ include "functions.php";
     <link href="./lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap-icons.css">
     <link rel="stylesheet" href="./style.css">
+    <script src="./lib/jquery-3.7.1.min.js"></script>
+    <script src="./script.js"></script>
 </head>
 
 <body class="bg-light">
@@ -29,14 +31,14 @@ include "functions.php";
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./genres.php">Genres</a>
+                        <a class="nav-link" href="/genres.php">Genres</a>
                     </li>
                     <li class="nav-item">
                         <!-- добавил в href после letter = 5 чтоб при загрузке сразу показывало первую букву и актеров -->
-                        <a class="nav-link" href="./actors.php?letter=5">Actors</a>
+                        <a class="nav-link" href="/actors.php?letter=5">Actors</a>
                     </li>
                     <!-- <li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
